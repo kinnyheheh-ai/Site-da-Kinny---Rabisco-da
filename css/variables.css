@@ -1,0 +1,24 @@
+/* Variáveis CSS - Rabiscos da Kinny */
+:root {
+    /* Paleta de Cores - Pastel/Suave */
+    --primary-color: #ffb7c5; /* Rosa Sakura */
+    --primary-dark: #ff9cb0;
+    --secondary-color: #c7ceea; /* Lilás suave */
+    --accent-color: #ffdac1; /* Pêssego */
+    --text-color: #4a4a4a; /* Cinza escuro para texto */
+    --bg-color: #fff9fb; /* Branco rosado muito suave */
+    --card-bg: #ffffff;
+    --footer-bg: #fff0f5;
+    
+    /* Espaçamento e Formas */
+    --border-radius: 16px;
+    --card-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
+    --hover-shadow: 0 8px 25px rgba(255, 183, 197, 0.4);
+    
+    /* Tipografia */
+    --font-main: 'Quicksand', 'Nunito', sans-serif;
+    --font-heading: 'Comfortaa', cursive;
+    
+    /* Transições */
+    --transition-fast: 0.3s ease;
+}

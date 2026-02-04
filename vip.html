@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área VIP | Rabiscos da Kinny</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <style>
+        /* CSS Inline specific for VIP demo style */
+        .vip-banner {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            padding: 60px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            color: #880e4f;
+            margin-bottom: 50px;
+        }
+
+        .locked-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .locked-card {
+            background: #f3e5f5;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid white;
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .blur-text {
+            filter: blur(4px);
+            user-select: none;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">✨ Rabiscos da Kinny</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link" data-lang="nav_home">Início</a></li>
+                    <li><a href="portfolio.html" class="nav-link" data-lang="nav_portfolio">Portfólio</a></li>
+                    <li><a href="commissions.html" class="nav-link" data-lang="nav_commissions">Comissões</a></li>
+                    <li><a href="vip.html" class="nav-link active" data-lang="nav_vip">Área VIP</a></li>
+                    <li><a href="client.html" class="nav-link" data-lang="nav_client">Área do Cliente</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <button id="lang-switch" class="lang-switch">EN</button>
+        </div>
+    </header>
+
+    <div class="container" style="margin-top: 100px;">
+        <h2 class="section-title" data-lang="vip_title">Clube Secreto</h2>
+
+        <div class="vip-banner" id="vip-gate">
+            <h3>✨ Área VIP - Seguidores ✨</h3>
+            <p>Este conteúdo é exclusivo para quem me segue no TikTok! 💕</p>
+            <p style="margin-bottom: 20px;">Siga @guaxinim_kinny_ofc para liberar.</p>
+            <button id="unlock-btn" class="btn btn-primary" style="margin-top: 20px;">🎵 Seguir para
+                Desbloquear</button>
+        </div>
+
+        <div id="vip-content" style="display: none; opacity: 0; transition: opacity 0.5s;">
+            <div class="vip-banner" style="background: linear-gradient(135deg, #70e1f5 0%, #ffd194 100%); color: #333;">
+                <h3>🎉 VIP Desbloqueado! 🎉</h3>
+                <p>Obrigada por seguir! Aqui estão seus conteúdos exclusivos.</p>
+            </div>
+
+            <h3 style="text-align: center; margin-bottom: 30px; color: var(--text-color);">Conteúdos Exclusivos Recentes
+            </h3>
+
+            <!-- Dynamic VIP Gallery -->
+            <div id="vip-dynamic-gallery" class="gallery-grid" style="margin-bottom: 30px;">
+                <!-- Loaded by JS -->
+            </div>
+
+            <!-- Static Placeholders (can be removed if user wants only dynamic) -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <span class="lock-icon">🔒</span>
+                    <h4>Pack de Pincéis Mensal</h4>
+                    <p>Disponível para Tier Gold</p>
+                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
+                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
+                </div>
+
+                <div class="locked-card">
+                    <span class="lock-icon">🔒</span>
+                    <h4>Speedpaint Exclusivo #42</h4>
+                    <p>Disponível para Tier Silver</p>
+                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
+                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
+                </div>
+
+                <div class="locked-card">
+                    <span class="lock-icon">🔒</span>
+                    <h4>PSD - Magical Girl</h4>
+                    <p>Disponível para Tier Gold</p>
+                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
+                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
+                </div>
+            </div>
+        </div> <!-- End of vip-content -->
+
+    </div>
+
+    <!-- VIP Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gate = document.getElementById('vip-gate');
+            const content = document.getElementById('vip-content');
+            const btn = document.getElementById('unlock-btn');
+
+            // Check if already unlocked locally
+            if (localStorage.getItem('vipUnlocked') === 'true') {
+                unlock(false);
+            }
+
+            btn.addEventListener('click', () => {
+                // Open TikTok in new tab
+                window.open('https://www.tiktok.com/@guaxinim_kinny_ofc', '_blank');
+
+                // Simulate verification delay (implied trust)
+                btn.innerHTML = "Verificando...";
+                setTimeout(() => {
+                    unlock(true);
+                }, 2000);
+            });
+
+            function unlock(animate) {
+                gate.style.display = 'none';
+                content.style.display = 'block';
+                // Trigger reflow
+                content.offsetHeight;
+                content.style.opacity = '1';
+
+                if (animate) {
+                    localStorage.setItem('vipUnlocked', 'true');
+                    // Create confetti or celebration effect here if desired
+                }
+            }
+
+            // Load Dynamic Images
+            const vipContainer = document.getElementById('vip-dynamic-gallery');
+            const savedGallery = JSON.parse(localStorage.getItem('siteGallery'));
+
+            if (savedGallery && savedGallery.vip && savedGallery.vip.length > 0) {
+                savedGallery.vip.forEach(imgSrc => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `<img src="${imgSrc}" alt="Conteúdo VIP">`;
+                    vipContainer.appendChild(item);
+                });
+            } else {
+                vipContainer.style.display = 'none';
+            }
+        });
+    </script>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon"
+                    title="TikTok">🎵</a>
+                <a href="#" class="social-icon">📸</a>
+            </div>
+            <div class="credits">
+                <p>&copy; 2024 Rabiscos da Kinny. <span data-lang="footer_rights">Todos os direitos
+                        reservados.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

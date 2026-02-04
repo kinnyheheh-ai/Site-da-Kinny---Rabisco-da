@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Rabiscos da Kinny</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="logo" style="margin-bottom: 20px;">🔒 Área Restrita</div>
+            <h2>Login Administrativo</h2>
+            <p style="margin-bottom: 20px; opacity: 0.7;">Digite a senha para gerenciar o site.</p>
+
+            <form id="login-form" class="login-form">
+                <input type="password" id="admin-password" class="admin-input" placeholder="Senha de acesso" required>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+            <p id="login-error" class="login-error">Senha incorreta! Tente novamente.</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div id="admin-dashboard" class="dashboard-container">
+        <header class="main-header">
+            <div class="container nav-container">
+                <a href="#" class="logo">⚙️ Painel Admin</a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#" class="nav-link active">Dashboard</a></li>
+                        <li><a href="index.html" class="nav-link">Ver Site</a></li>
+                    </ul>
+                </nav>
+                <button id="logout-btn" class="btn btn-outline"
+                    style="padding: 5px 15px; font-size: 0.9rem;">Sair</button>
+            </div>
+        </header>
+
+        <div class="container" style="margin-top: 30px;">
+            <div class="admin-grid">
+
+                <!-- Base Prices Pricing -->
+                <div class="admin-card">
+                    <h3>💰 Preços Base</h3>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">Edite os valores principais das comissões.</p>
+
+                    <div class="form-group">
+                        <label>Icon / Headshot</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="price-icon" class="admin-input" step="0.50" min="0">
+                        </div>
+                        <div style="margin-top: 5px; display: flex; gap: 10px; align-items: center;">
+                            <label style="font-size: 0.8rem;"><input type="checkbox" id="status-icon" checked>
+                                Disponível</label>
+                            <input type="text" id="msg-icon" class="admin-input"
+                                placeholder="Msg Indisponível (ex: Esgotado)"
+                                style="font-size: 0.8rem; padding: 5px; flex-grow: 1;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Busto / Halfbody</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="price-bust" class="admin-input" step="0.50" min="0">
+                        </div>
+                        <div style="margin-top: 5px; display: flex; gap: 10px; align-items: center;">
+                            <label style="font-size: 0.8rem;"><input type="checkbox" id="status-bust" checked>
+                                Disponível</label>
+                            <input type="text" id="msg-bust" class="admin-input" placeholder="Msg Indisponível"
+                                style="font-size: 0.8rem; padding: 5px; flex-grow: 1;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Corpo Inteiro</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="price-fullbody" class="admin-input" step="0.50" min="0">
+                        </div>
+                        <div style="margin-top: 5px; display: flex; gap: 10px; align-items: center;">
+                            <label style="font-size: 0.8rem;"><input type="checkbox" id="status-fullbody" checked>
+                                Disponível</label>
+                            <input type="text" id="msg-fullbody" class="admin-input" placeholder="Msg Indisponível"
+                                style="font-size: 0.8rem; padding: 5px; flex-grow: 1;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add-ons Pricing -->
+                <div class="admin-card">
+                    <h3>🎨 Adicionais</h3>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">Valores extras por acabamento.</p>
+
+
+                    <div class="form-group">
+                        <label>Lineart (+)</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="addon-lineart" class="admin-input" step="0.50" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cores Simples (+)</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="addon-flat" class="admin-input" step="0.50" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cores Completas (+)</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="addon-full" class="admin-input" step="0.50" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Personagem Adicional (+)</label>
+                        <div class="price-input-group">
+                            <span class="currency-symbol">R$</span>
+                            <input type="number" id="addon-char" class="admin-input" step="0.50" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Site Status -->
+                <div class="admin-card">
+                    <h3>⚙️ Status & Comissões</h3>
+
+                    <div class="form-group">
+                        <label>Status das Comissões</label>
+                        <select id="commissions-status-select" class="admin-input" style="width: 100%;">
+                            <option value="open">✨ Abertas</option>
+                            <option value="closed">🔒 Fechadas</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h4>Últimos Pedidos (Simulado)</h4>
+                        <div style="margin-top: 10px; font-size: 0.9rem;">
+                            <div
+                                style="padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                                <span>#442 @LunarSkies</span>
+                                <span style="color: orange;">WIP</span>
+                            </div>
+                            <div
+                                style="padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                                <span>#443 @FoxGamer</span>
+                                <span style="color: gray;">Waiting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Settings -->
+                <div class="admin-card">
+                    <h3>📞 Contato</h3>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">Links de contato do site.</p>
+
+                    <div class="form-group">
+                        <label>TikTok URL</label>
+                        <input type="text" id="contact-tiktok" class="admin-input" style="width: 100%;"
+                            placeholder="https://tiktok.com/@...">
+                    </div>
+                </div>
+
+                <!-- Visual Settings -->
+                <div class="admin-card">
+                    <h3>🎨 Visual & Personalização</h3>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">Personalize a aparência do site.</p>
+
+                    <div class="form-group">
+                        <label>Cor Principal (Tema)</label>
+                        <input type="color" id="theme-color" class="admin-input"
+                            style="width: 100%; height: 50px; padding: 5px;" value="#ffb7c5">
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL do Avatar</label>
+                        <input type="text" id="site-avatar" class="admin-input" style="width: 100%;"
+                            placeholder="https://...">
+                        <small style="color: gray;">Cole o link de uma imagem quadrada.</small>
+                    </div>
+                </div>
+
+                <!-- Custom Status Messages -->
+                <div class="admin-card">
+                    <h3>📢 Mensagens de Status</h3>
+
+                    <div class="form-group">
+                        <label>Mensagem (Aberto)</label>
+                        <input type="text" id="msg-open" class="admin-input" style="width: 100%;"
+                            placeholder="ex: Comissões Abertas! ✨">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mensagem (Fechado)</label>
+                        <input type="text" id="msg-closed" class="admin-input" style="width: 100%;"
+                            placeholder="ex: Fechado temporariamente 🔒">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Gallery Management -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+            <h3>🖼️ Gerenciar Galeria & VIP</h3>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="margin-bottom: 10px;">Adicionar Nova Imagem</h4>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <select id="upload-category" class="admin-input">
+                        <option value="portfolio">Portfólio (Público)</option>
+                        <option value="vip">VIP (Privado)</option>
+                    </select>
+                    <input type="file" id="image-upload" accept="image/*" class="admin-input">
+                    <button id="btn-upload" class="btn btn-primary" style="padding: 10px 20px;">Enviar</button>
+                </div>
+                <small style="color: gray;">Nota: Imagens serão redimensionadas para economizar espaço.</small>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Imagens do Portfólio</h4>
+                    <div id="gallery-list-portfolio"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
+                        <!-- Images injected by JS -->
+                    </div>
+                </div>
+                <div>
+                    <h4>Imagens VIP</h4>
+                    <div id="gallery-list-vip"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
+                        <!-- Images injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders System -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+            <h3>📦 Gerenciar Pedidos</h3>
+            <p style="margin-bottom: 20px; font-size: 0.9rem;">Veja e atualize o status dos pedidos.</p>
+
+            <div id="orders-list" style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Orders will be injected here by JS -->
+                <p style="text-align: center; color: gray;">Nenhum pedido ainda.</p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Floating Save Button -->
+    <button id="save-settings-btn" class="save-fab" title="Salvar Alterações">
+        💾
+    </button>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="success-toast">
+        Configurações Salvas! ✨
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+/* Mobile CSS */
+
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+    border-radius: 3px;
+}
+
+/* Media Queries */
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .pricing-grid {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Mobile (max 768px) */
+@media (max-width: 768px) {
+
+    /* Header & Nav */
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        gap: 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin: 15px 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Container adjustments */
+    .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    /* Typography adjustments */
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    /* Layout adjustments */
+    .pricing-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .price-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .contact-cta {
+        padding: 20px;
+    }
+
+    .steps-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    /* Gallery adjustments */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile instead of 1 usually looks better for art */
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* VIP & Client Mobile */
+    .vip-banner {
+        padding: 30px;
+    }
+
+    .locked-content {
+        grid-template-columns: 1fr;
+    }
+
+    .queue-item {
+        flex-direction: column;
+        text-align: center;
+        border-left: none;
+        border-top: 5px solid #eee;
+        padding-top: 20px;
+    }
+
+    .queue-item.done {
+        border-top-color: #66bb6a;
+    }
+
+    .queue-item.wip {
+        border-top-color: #ffca28;
+    }
+
+    .queue-item.waiting {
+        border-top-color: #bdbdbd;
+    }
+
+    .client-info {
+        flex-direction: column;
+    }
+}
