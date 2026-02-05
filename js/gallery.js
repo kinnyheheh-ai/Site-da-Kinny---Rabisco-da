@@ -3,15 +3,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryGrid = document.querySelector('.gallery-grid');
     const filterBtns = document.querySelectorAll('.filter-btn');
 
-    // === Load Dynamic Images ===
-    const savedGallery = JSON.parse(localStorage.getItem('siteGallery'));
-    if (savedGallery && savedGallery.portfolio) {
-        savedGallery.portfolio.forEach(imgSrc => {
+    // === Gallery Data (Permanent + Local) ===
+    const defaultGallery = {
+        portfolio: [
+            { src: 'images/portfolio/oc_green.png', category: 'oc', title: 'Minha OC' }
+            // Adicione mais artes aqui seguindo o padrão acima!
+        ]
+    };
+
+    const savedGallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [] };
+
+    // Convert old simple array to object if necessary or handle both
+    const localPortfolio = Array.isArray(savedGallery.portfolio)
+        ? savedGallery.portfolio.map(src => ({ src, category: 'all', title: 'Arte Adicionada' }))
+        : [];
+
+    const fullPortfolio = [...defaultGallery.portfolio, ...localPortfolio];
+
+    // === Load All Images ===
+    if (fullPortfolio.length > 0) {
+        galleryGrid.innerHTML = ''; // Clear placeholders
+        fullPortfolio.forEach(itemData => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
-            item.setAttribute('data-category', 'all'); // Assign 'all' or default category
-            item.innerHTML = `<img src="${imgSrc}" alt="Arte do Portfólio" loading="lazy">`;
-            // Insert at the beginning or end
+            item.setAttribute('data-category', itemData.category);
+
+            item.innerHTML = `
+                <img src="${itemData.src}" alt="${itemData.title}" loading="lazy">
+                <div class="item-overlay">
+                    <h3 class="item-title">${itemData.title}</h3>
+                </div>
+            `;
+
             galleryGrid.appendChild(item);
         });
     }
@@ -51,33 +74,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // As we are using placeholders, we'll clone the content or set bg color
     // For real images: modalImg.src = this.querySelector('img').src;
 
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
     galleryItems.forEach(item => {
         item.addEventListener('click', function () {
-            // Setup for placeholder demonstration
-            const placeholder = this.querySelector('.img-placeholder');
-            const title = this.querySelector('.item-title').textContent;
-
-            // If real image exists
             const img = this.querySelector('img');
+            const title = this.querySelector('.item-title') ? this.querySelector('.item-title').textContent : 'Arte';
 
-            if (img) {
+            if (img && img.src) {
                 modalImg.src = img.src;
                 modalImg.style.display = 'block';
-                modalImg.style.backgroundColor = 'transparent';
-            } else if (placeholder) {
-                // Determine color from placeholder style or computed style
-                // For demo, just making a colored block
-                modalImg.src = '';
-                modalImg.style.display = 'block';
-                modalImg.style.width = '500px';
-                modalImg.style.height = '500px';
-                modalImg.style.backgroundColor = getComputedStyle(placeholder).backgroundColor;
-                modalImg.alt = "Placeholder view";
+                modalImg.alt = title;
+                modalCaption.textContent = title;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
             }
-
-            modalCaption.textContent = title;
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
         });
     });
 
