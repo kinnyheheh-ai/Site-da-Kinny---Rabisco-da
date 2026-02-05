@@ -4,6 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Área VIP exclusiva para seguidores da Kinny. Acesse rascunhos, processos e artes inéditas!">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rabiscosdakinny.art/vip.html">
+    <meta property="og:title" content="Área VIP | Rabiscos da Kinny">
+    <meta property="og:description" content="Acesse conteúdos exclusivos e bastidores da arte da Kinny.">
+    <meta property="og:image" content="images/og-image.jpg">
+
     <title>Área VIP | Rabiscos da Kinny</title>
 
     <link rel="stylesheet" href="css/variables.css">
@@ -78,57 +88,48 @@
 
     <div class="container" style="margin-top: 100px;">
         <h2 class="section-title" data-lang="vip_title">Clube Secreto</h2>
+        <p class="section-subtitle">Aqui você encontrará rascunhos, processos e artes exclusivas.</p>
 
+        <!-- VIP Locked Gate -->
         <div class="vip-banner" id="vip-gate">
-            <h3>✨ Área VIP - Seguidores ✨</h3>
-            <p>Este conteúdo é exclusivo para quem me segue no TikTok! 💕</p>
-            <p style="margin-bottom: 20px;">Siga @guaxinim_kinny_ofc para liberar.</p>
-            <button id="unlock-btn" class="btn btn-primary" style="margin-top: 20px;">🎵 Seguir para
-                Desbloquear</button>
+            <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🔒</span>
+            <h3 style="margin-bottom: 15px;">Acesso Restrito aos Seguidores</h3>
+            <p>Este conteúdo é um presente especial para quem me acompanha no TikTok! 💕</p>
+            <p style="margin-bottom: 25px; opacity: 0.8;">Siga **@guaxinim_kinny_ofc** para liberar
+                instantaneamente.</p>
+            <button id="unlock-btn" class="btn btn-primary">🎵 Seguir & Desbloquear</button>
         </div>
 
-        <div id="vip-content" style="display: none; opacity: 0; transition: opacity 0.5s;">
-            <div class="vip-banner" style="background: linear-gradient(135deg, #70e1f5 0%, #ffd194 100%); color: #333;">
-                <h3>🎉 VIP Desbloqueado! 🎉</h3>
-                <p>Obrigada por seguir! Aqui estão seus conteúdos exclusivos.</p>
+        <!-- VIP Content (Visible after unlock) -->
+        <div id="vip-content" style="display: none; opacity: 0; transition: var(--transition-slow);">
+            <div class="vip-banner"
+                style="background: var(--bg-soft); border: 2px solid var(--primary-light); color: var(--text-color);">
+                <h3>✨ Bem-vinda(o) ao Clube! ✨</h3>
+                <p>Obrigada por todo o carinho e por me seguir. Aproveite os conteúdos exclusivos abaixo!</p>
             </div>
 
-            <h3 style="text-align: center; margin-bottom: 30px; color: var(--text-color);">Conteúdos Exclusivos Recentes
-            </h3>
-
-            <!-- Dynamic VIP Gallery -->
-            <div id="vip-dynamic-gallery" class="gallery-grid" style="margin-bottom: 30px;">
+            <div id="vip-dynamic-gallery" class="gallery-grid">
                 <!-- Loaded by JS -->
             </div>
 
-            <!-- Static Placeholders (can be removed if user wants only dynamic) -->
+            <!-- Pre-defined Exclusive Areas -->
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <span class="lock-icon">🔒</span>
-                    <h4>Pack de Pincéis Mensal</h4>
-                    <p>Disponível para Tier Gold</p>
-                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
-                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
+                <div class="card" style="text-align: center; padding: 40px;">
+                    <span style="font-size: 2.5rem; margin-bottom: 15px; display: block;">🖌️</span>
+                    <h4>Processos & PSDs</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px;">Veja os arquivos
+                        originais dos meus desenhos favoritos.</p>
+                    <span class="btn btn-outline" style="cursor: default; opacity: 0.6;">Em breve</span>
                 </div>
-
-                <div class="locked-card">
-                    <span class="lock-icon">🔒</span>
-                    <h4>Speedpaint Exclusivo #42</h4>
-                    <p>Disponível para Tier Silver</p>
-                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
-                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
-                </div>
-
-                <div class="locked-card">
-                    <span class="lock-icon">🔒</span>
-                    <h4>PSD - Magical Girl</h4>
-                    <p>Disponível para Tier Gold</p>
-                    <p class="blur-text">Lorem ipsum dolor sit amet consectetur.</p>
-                    <button class="btn btn-outline" style="margin-top: 15px;">Desbloquear</button>
+                <div class="card" style="text-align: center; padding: 40px;">
+                    <span style="font-size: 2.5rem; margin-bottom: 15px; display: block;">🎁</span>
+                    <h4>Brindes Mensais</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px;">Pincéis, wallpapers
+                        e ícones para você usar.</p>
+                    <span class="btn btn-outline" style="cursor: default; opacity: 0.6;">Em breve</span>
                 </div>
             </div>
-        </div> <!-- End of vip-content -->
-
+        </div>
     </div>
 
     <!-- VIP Logic Script -->
@@ -138,48 +139,60 @@
             const content = document.getElementById('vip-content');
             const btn = document.getElementById('unlock-btn');
 
-            // Check if already unlocked locally
+            function unlock(animate = true) {
+                gate.style.display = 'none';
+                content.style.display = 'block';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                }, 10);
+
+                if (animate) {
+                    localStorage.setItem('vipUnlocked', 'true');
+                }
+                loadVIPContent();
+            }
+
             if (localStorage.getItem('vipUnlocked') === 'true') {
                 unlock(false);
             }
 
             btn.addEventListener('click', () => {
-                // Open TikTok in new tab
                 window.open('https://www.tiktok.com/@guaxinim_kinny_ofc', '_blank');
+                btn.innerHTML = "✨ Verificando...";
+                btn.style.opacity = "0.7";
 
-                // Simulate verification delay (implied trust)
-                btn.innerHTML = "Verificando...";
                 setTimeout(() => {
                     unlock(true);
-                }, 2000);
+                }, 1500);
             });
 
-            function unlock(animate) {
-                gate.style.display = 'none';
-                content.style.display = 'block';
-                // Trigger reflow
-                content.offsetHeight;
-                content.style.opacity = '1';
+            function loadVIPContent() {
+                const vipContainer = document.getElementById('vip-dynamic-gallery');
+                if (!vipContainer) return;
 
-                if (animate) {
-                    localStorage.setItem('vipUnlocked', 'true');
-                    // Create confetti or celebration effect here if desired
+                const savedGallery = JSON.parse(localStorage.getItem('siteGallery')) || { vip: [] };
+
+                if (savedGallery.vip && savedGallery.vip.length > 0) {
+                    vipContainer.innerHTML = ''; // Clear
+                    savedGallery.vip.forEach(imgSrc => {
+                        const item = document.createElement('div');
+                        item.className = 'gallery-item';
+                        item.innerHTML = `<img src="${imgSrc}" alt="Conteúdo VIP" class="gallery-img">`;
+                        // Simple click to show large if modal exists
+                        item.onclick = () => {
+                            if (window.openModal) window.openModal(imgSrc, 'Conteúdo VIP');
+                        };
+                        vipContainer.appendChild(item);
+                    });
+                } else {
+                    // Show a message if no images are uploaded yet
+                    vipContainer.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: gray;">
+                            <p>Ainda não há novas artes exclusivas esta semana.</p>
+                            <p style="font-size: 0.8rem;">Fique de olho no TikTok para novidades!</p>
+                        </div>
+                    `;
                 }
-            }
-
-            // Load Dynamic Images
-            const vipContainer = document.getElementById('vip-dynamic-gallery');
-            const savedGallery = JSON.parse(localStorage.getItem('siteGallery'));
-
-            if (savedGallery && savedGallery.vip && savedGallery.vip.length > 0) {
-                savedGallery.vip.forEach(imgSrc => {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    item.innerHTML = `<img src="${imgSrc}" alt="Conteúdo VIP">`;
-                    vipContainer.appendChild(item);
-                });
-            } else {
-                vipContainer.style.display = 'none';
             }
         });
     </script>

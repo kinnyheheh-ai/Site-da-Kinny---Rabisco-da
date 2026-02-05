@@ -4,6 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Rabiscos da Kinny - Portfólio de arte digital fofa, fanarts e comissões personalizadas. Transforme seus sonhos em arte!">
+    <meta name="keywords" content="arte digital, ilustradora, comissões, fanart, chibi, anime, kinny">
+    <meta name="author" content="Kinny">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rabiscosdakinny.art/">
+    <meta property="og:title" content="Rabiscos da Kinny | Portfólio de Arte">
+    <meta property="og:description" content="Transformando sonhos em arte digital fofa ✨">
+    <meta property="og:image" content="images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rabiscosdakinny.art/">
+    <meta property="twitter:title" content="Rabiscos da Kinny | Portfólio de Arte">
+    <meta property="twitter:description" content="Transformando sonhos em arte digital fofa ✨">
+    <meta property="twitter:image" content="images/og-image.jpg">
+
     <title>Rabiscos da Kinny | Portfólio de Arte</title>
 
     <!-- CSS -->
@@ -12,41 +31,22 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/mobile.css">
+
+    <!-- Header/Footer Component -->
+    <script src="js/components.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">✨ Rabiscos da Kinny</a>
-
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link active" data-lang="nav_home">Início</a></li>
-                    <li><a href="portfolio.html" class="nav-link" data-lang="nav_portfolio">Portfólio</a></li>
-                    <li><a href="commissions.html" class="nav-link" data-lang="nav_commissions">Comissões</a></li>
-                    <li><a href="vip.html" class="nav-link" data-lang="nav_vip">Área VIP</a></li>
-                    <li><a href="client.html" class="nav-link" data-lang="nav_client">Área do Cliente</a></li>
-                </ul>
-            </nav>
-
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-
-            <button id="lang-switch" class="lang-switch">EN</button>
-        </div>
-    </header>
+    <!-- Header (Injected automatically) -->
+    <header class="main-header"></header>
 
     <!-- Hero Section -->
     <section class="hero container">
         <div class="hero-content">
-            <h1 class="hero-title" data-lang="hero_title">Olá, eu sou a Kinny!</h1>
-            <p class="hero-subtitle" data-lang="hero_subtitle">Dando vida aos seus sonhos através de cores e traços
-                fofos.</p>
+            <h1 class="hero-title" data-lang="hero_title">Transformando sonhos em <span>arte digital fofa ✨</span></h1>
+            <p class="hero-subtitle" data-lang="hero_subtitle">Sou a Kinny, ilustradora focada em dar vida a personagens
+                e momentos mágicos com um toque artístico único.</p>
 
             <div class="hero-buttons">
                 <a href="portfolio.html" class="btn btn-primary" data-lang="btn_portfolio">Ver Portfólio</a>
@@ -56,54 +56,48 @@
 
         <div class="hero-image">
             <div class="avatar-container">
-                <!-- Placeholder for Artist Avatar -->
                 <div class="avatar-placeholder">👩‍🎨</div>
             </div>
         </div>
     </section>
 
-    <!-- Highlights / About -->
-    <div class="container highlights">
-        <h2 class="section-title" data-lang="section_about">Sobre Mim</h2>
-        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
-            <p data-lang="about_text">Sou uma artista digital apaixonada por criar personagens fofos e mundos mágicos.
-                Especializada em estilo anime e chibi.</p>
+    <!-- About & Highlights -->
+    <section class="container highlights">
+        <h2 class="section-title" data-lang="section_about">Sobre a Artista</h2>
+
+        <div class="about-box">
+            <p data-lang="about_text">Com anos de experiência em arte digital, crio ilustrações que misturam a
+                delicadeza do estilo anime com a expressividade do chibi. Meu foco é capturar a essência de cada
+                personagem, seja ele uma fanart ou uma criação original sua.</p>
         </div>
 
         <div class="highlights-grid">
             <div class="highlight-card">
-                <span class="highlight-icon">🎨</span>
-                <h3>Fanarts</h3>
-                <p>Recriações fofas de personagens amados.</p>
-            </div>
-            <div class="highlight-card">
-                <span class="highlight-icon">✨</span>
-                <h3>Original Characters</h3>
-                <p>Design de personagens únicos para você.</p>
-            </div>
-            <div class="highlight-card">
-                <span class="highlight-icon">📔</span>
-                <h3>Sketches</h3>
-                <p>Rabiscos rápidos e cheios de sentimento.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon"
-                    title="TikTok">🎵</a>
-                <a href="#" class="social-icon">📸</a>
-                <a href="#" class="social-icon">🖌️</a>
-            </div>
-            <div class="credits">
-                <p>&copy; 2024 Rabiscos da Kinny. <span data-lang="footer_rights">Todos os direitos reservados.</span>
+                <div class="highlight-icon">🎨</div>
+                <h3 data-lang="cat_fanarts">Fanarts</h3>
+                <p data-lang="desc_fanarts">Recriações apaixonantes dos seus personagens favoritos de jogos e animes.
                 </p>
             </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">✨</div>
+                <h3 data-lang="cat_ocs">Original Characters</h3>
+                <p data-lang="desc_ocs">Design de personagens únicos, Sheets e concepts para suas histórias.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">📔</div>
+                <h3 data-lang="cat_sketches">Sketches</h3>
+                <p data-lang="desc_sketches">Rabiscos rápidos e artísticos, perfeitos para capturar ideias iniciais.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">📦</div>
+                <h3 data-lang="cat_comms">Comissões</h3>
+                <p data-lang="desc_comms">Trabalhos sob encomenda com entrega garantida e alta qualidade.</p>
+            </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- Footer (Injected automatically) -->
+    <footer></footer>
 
     <!-- Scripts -->
     <script src="js/translations.js"></script>

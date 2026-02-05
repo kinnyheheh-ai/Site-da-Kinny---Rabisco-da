@@ -1,45 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === Language System ===
-    const langSwitch = document.getElementById('lang-switch');
     let currentLang = localStorage.getItem('siteLang') || 'pt';
 
     function updateLanguage(lang) {
         document.querySelectorAll('[data-lang]').forEach(element => {
             const key = element.getAttribute('data-lang');
             if (translations[lang] && translations[lang][key]) {
-                element.textContent = translations[lang][key];
+                const content = translations[lang][key];
+                // Only use innerHTML for specific elements that need formatting (like lists)
+                if (key.includes('_list') || key.includes('title') || content.includes('<')) {
+                    element.innerHTML = content;
+                } else {
+                    element.textContent = content;
+                }
             }
         });
 
-        // Update button text if needed
-        if (langSwitch) {
-            langSwitch.textContent = lang === 'pt' ? 'EN' : 'PT';
-        }
+        // Update all lang-switch buttons (including centralized one)
+        document.querySelectorAll('.lang-switch').forEach(btn => {
+            btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+        });
 
         localStorage.setItem('siteLang', lang);
     }
 
-    if (langSwitch) {
-        langSwitch.addEventListener('click', () => {
+    // Use event delegation for lang-switch since it might be dynamically injected
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'lang-switch' || e.target.classList.contains('lang-switch')) {
             currentLang = currentLang === 'pt' ? 'en' : 'pt';
             updateLanguage(currentLang);
-        });
-    }
+        }
+    });
 
     // Initialize Language
     updateLanguage(currentLang);
 
-    // === Mobile Menu ===
-    // (Simples toggle se houver um hamburguer menu futuramente, 
-    // por enquanto focado na estrutura desktop/responsiva css)
-
-    // Add active class to current nav link
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-        }
-    });
+    // Dynamic Contact Info and Other Logic...
 
     // === Dynamic Contact Info ===
     function updateContactInfo() {
@@ -65,14 +61,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (settings.visual) {
             // Theme Color
             if (settings.visual.color) {
-                document.documentElement.style.setProperty('--primary-color', settings.visual.color);
-                // Calculate logic for buttons/hovers if needed, but simple var override works for most
+                const color = settings.visual.color;
+                document.documentElement.style.setProperty('--primary-color', color);
+
+                // Calculate Variations
+                const r = parseInt(color.slice(1, 3), 16);
+                const g = parseInt(color.slice(3, 5), 16);
+                const b = parseInt(color.slice(5, 7), 16);
+
+                // Dark Variation
+                const dark = `rgb(${Math.floor(r * 0.8)}, ${Math.floor(g * 0.8)}, ${Math.floor(b * 0.8)})`;
+                document.documentElement.style.setProperty('--primary-dark', dark);
+
+                // Light Variation (Translucent)
+                const light = `rgba(${r}, ${g}, ${b}, 0.15)`;
+                document.documentElement.style.setProperty('--primary-light', light);
             }
 
             // Avatar (Home Page)
             const avatarContainer = document.querySelector('.avatar-container');
             if (avatarContainer && settings.visual.avatar) {
-                // If url provided, replace placeholder with img
                 avatarContainer.innerHTML = `<img src="${settings.visual.avatar}" style="width:100%; height:100%; object-fit:cover;" alt="Avatar">`;
             }
         }

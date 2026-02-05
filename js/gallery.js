@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
             item.setAttribute('data-category', 'all'); // Assign 'all' or default category
-            item.innerHTML = `<img src="${imgSrc}" alt="Arte do Portfólio">`;
+            item.innerHTML = `<img src="${imgSrc}" alt="Arte do Portfólio" loading="lazy">`;
             // Insert at the beginning or end
             galleryGrid.appendChild(item);
         });

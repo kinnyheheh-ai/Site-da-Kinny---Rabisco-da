@@ -1,37 +1,38 @@
 /* Botões */
 .btn {
     display: inline-block;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: var(--border-radius);
+    font-weight: 700;
     cursor: pointer;
-    border: none;
     transition: var(--transition-fast);
+    font-family: var(--font-main);
+    border: none;
     font-size: 1rem;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
+    box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
 }
 
 .btn-primary:hover {
     background-color: var(--primary-dark);
     transform: translateY(-3px);
-    box-shadow: var(--hover-shadow);
+    box-shadow: 0 8px 25px rgba(255, 183, 197, 0.6);
 }
 
 .btn-outline {
     background-color: transparent;
     border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .btn-outline:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-light);
+    border-color: var(--primary-dark);
     transform: translateY(-3px);
 }
 
@@ -52,14 +53,15 @@
 
 /* Header & Nav */
 .main-header {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-    padding: 15px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 183, 197, 0.1);
+    transition: var(--transition-fast);
 }
 
 .nav-container {
@@ -70,35 +72,38 @@
 
 .logo {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--primary-dark);
 }
 
 .nav-menu {
     display: flex;
-    gap: 30px;
+    gap: 25px;
+    list-style: none;
 }
 
 .nav-link {
     font-weight: 600;
+    font-size: 1rem;
     position: relative;
+    padding: 5px 0;
     color: var(--text-color);
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: -5px;
+    bottom: 0;
     left: 0;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-    transition: width 0.3s;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition-fast);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 

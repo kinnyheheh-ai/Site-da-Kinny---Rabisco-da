@@ -49,28 +49,37 @@ img {
 }
 
 section {
-    padding: 60px 0;
-    margin-bottom: 40px;
+    padding: 80px 0;
 }
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: 700;
     color: var(--primary-dark);
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block;
 }
 
 .section-title::after {
-    content: '✨';
-    font-size: 1.5rem;
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
     position: absolute;
-    right: -30px;
-    top: -10px;
-    animation: float 3s ease-in-out infinite;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: -40px auto 60px;
+    font-size: 1.1rem;
 }
 
 @keyframes float {
