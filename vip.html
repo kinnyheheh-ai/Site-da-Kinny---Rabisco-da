@@ -16,40 +16,51 @@
 
     <title>Área VIP | Rabiscos da Kinny</title>
 
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <script src="js/components.js" defer></script>
     <style>
         .vip-banner {
-            background: linear-gradient(135deg, var(--bg-soft) 0%, var(--primary-light) 100%);
-            padding: 60px;
-            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, var(--bg-soft) 0%, var(--primary-light) 60%, var(--secondary-color) 100%);
+            padding: 80px 40px;
+            border-radius: var(--border-radius-lg);
             text-align: center;
             color: var(--text-color);
-            margin-bottom: 50px;
-            border: 2px solid var(--primary-light);
+            margin-bottom: 60px;
+            border: 2px solid white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-banner::before {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
         }
 
-        .gallery-item {
-            position: relative;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            cursor: pointer;
-            background-color: var(--bg-soft);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition-fast);
+        .vip-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-light);
+            transition: var(--transition);
         }
 
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-slow);
+        .vip-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-color);
         }
     </style>
 </head>
@@ -58,9 +69,9 @@
 
     <header class="main-header"></header>
 
-    <div class="container" style="margin-top: 100px;">
-        <h2 class="section-title" data-lang="vip_title">Clube Secreto</h2>
-        <p class="section-subtitle">Aqui você encontrará rascunhos, processos e artes exclusivas.</p>
+    <div class="container" style="margin-top: 120px;">
+        <h2 class="section-title" data-lang="vip_title">Clube Secreto da Kinny</h2>
+        <p class="section-subtitle">Um cantinho especial com rascunhos, processos e artes que você só vê aqui.</p>
 
         <!-- VIP Locked Gate -->
         <div class="vip-banner" id="vip-gate">
@@ -86,18 +97,18 @@
 
             <!-- Pre-defined Exclusive Areas -->
             <div class="gallery-grid">
-                <div class="card" style="text-align: center; padding: 40px;">
-                    <span style="font-size: 2.5rem; margin-bottom: 15px; display: block;">🖌️</span>
-                    <h4>Processos & PSDs</h4>
-                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px;">Veja os arquivos
-                        originais dos meus desenhos favoritos.</p>
+                <div class="card vip-card" style="text-align: center; padding: 40px;">
+                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🖌️</span>
+                    <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Processos & PSDs</h4>
+                    <p style="color: var(--text-light); font-size: 1rem; margin-bottom: 25px;">Acompanhe o passo a passo
+                        e veja as camadas dos meus desenhos favoritos.</p>
                     <span class="btn btn-outline" style="cursor: default; opacity: 0.6;">Em breve</span>
                 </div>
-                <div class="card" style="text-align: center; padding: 40px;">
-                    <span style="font-size: 2.5rem; margin-bottom: 15px; display: block;">🎁</span>
-                    <h4>Brindes Mensais</h4>
-                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px;">Pincéis, wallpapers
-                        e ícones para você usar.</p>
+                <div class="card vip-card" style="text-align: center; padding: 40px;">
+                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🎁</span>
+                    <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Brindes Mensais</h4>
+                    <p style="color: var(--text-light); font-size: 1rem; margin-bottom: 25px;">Pincéis exclusivos,
+                        wallpapers em 4K e ícones feitos com carinho para você.</p>
                     <span class="btn btn-outline" style="cursor: default; opacity: 0.6;">Em breve</span>
                 </div>
             </div>
