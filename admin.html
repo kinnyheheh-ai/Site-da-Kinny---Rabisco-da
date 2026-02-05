@@ -222,6 +222,19 @@
             <h3>🖼️ Gerenciar Galeria & VIP</h3>
 
             <div style="margin-bottom: 20px;">
+                <h4 style="margin-bottom: 10px;">Status da Área VIP</h4>
+                <div
+                    style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                    <label style="display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                        <input type="checkbox" id="vip-active" checked> Área VIP Ativa
+                    </label>
+                    <div class="form-group" style="margin: 0;">
+                        <label style="font-size: 0.9rem;">Mensagem quando indisponível:</label>
+                        <input type="text" id="vip-msg-unavailable" class="admin-input" style="width: 100%;"
+                            placeholder="ex: A área VIP está em manutenção. Volte logo!">
+                    </div>
+                </div>
+
                 <h4 style="margin-bottom: 10px;">Adicionar Nova Imagem</h4>
                 <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                     <select id="upload-category" class="admin-input">

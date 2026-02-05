@@ -174,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
             bust: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' },
             fullbody: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' },
             kofi: { active: false, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' }
+        },
+        vipStatus: {
+            active: true,
+            msg: 'Ainda não há novas artes exclusivas esta semana. Fique de olho no TikTok!'
         }
     };
 
@@ -201,7 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
         statusFullbody: document.getElementById('status-fullbody'),
         msgFullbody: document.getElementById('msg-fullbody'),
         statusKofi: document.getElementById('status-kofi'),
-        msgKofi: document.getElementById('msg-kofi')
+        msgKofi: document.getElementById('msg-kofi'),
+        vipActive: document.getElementById('vip-active'),
+        vipMsg: document.getElementById('vip-msg-unavailable')
     };
 
     const saveBtn = document.getElementById('save-settings-btn');
@@ -243,6 +249,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputs.msgFullbody) inputs.msgFullbody.value = av.fullbody.msg;
         if (inputs.statusKofi) inputs.statusKofi.checked = av.kofi ? av.kofi.active : defaults.availability.kofi.active;
         if (inputs.msgKofi) inputs.msgKofi.value = av.kofi ? av.kofi.msg : defaults.availability.kofi.msg;
+
+        // VIP Status
+        const vip = storedSettings.vipStatus || defaults.vipStatus;
+        if (inputs.vipActive) inputs.vipActive.checked = vip.active;
+        if (inputs.vipMsg) inputs.vipMsg.value = vip.msg;
     }
 
     if (saveBtn) {
@@ -277,6 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     bust: { active: inputs.statusBust.checked, msg: inputs.msgBust.value },
                     fullbody: { active: inputs.statusFullbody.checked, msg: inputs.msgFullbody.value },
                     kofi: { active: inputs.statusKofi.checked, msg: inputs.msgKofi.value }
+                },
+                vipStatus: {
+                    active: inputs.vipActive.checked,
+                    msg: inputs.vipMsg.value
                 }
             };
 
