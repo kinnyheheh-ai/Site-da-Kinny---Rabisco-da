@@ -4,12 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
 
     // === Gallery Data (Permanent + Local) ===
-    const defaultGallery = {
-        portfolio: [
-            { src: 'images/portfolio/YAN DESENHO!!!.png', category: 'oc', title: 'Minha OC' }
-            // Adicione mais artes aqui seguindo o padrão acima!
-        ]
-    };
+    const data = typeof defaultGallery !== 'undefined' ? defaultGallery : { portfolio: [], vip: [] };
 
     const savedGallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [] };
 
@@ -19,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : [];
 
     // Merge and remove duplicates (by src)
-    const combined = [...defaultGallery.portfolio, ...localPortfolio];
+    const combined = [...data.portfolio, ...localPortfolio];
     const uniqueMap = new Map();
     combined.forEach(item => {
         if (!uniqueMap.has(item.src)) {

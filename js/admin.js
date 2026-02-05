@@ -75,18 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const gallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [], vip: [] };
 
-        renderImages(pList, gallery.portfolio, 'portfolio');
-        renderImages(vList, gallery.vip, 'vip');
+        // Render Permanent first
+        if (typeof defaultGallery !== 'undefined') {
+            renderImages(pList, defaultGallery.portfolio.map(i => i.src), 'portfolio', true);
+            renderImages(vList, defaultGallery.vip.map(i => i.src), 'vip', true);
+        }
+
+        renderImages(pList, gallery.portfolio, 'portfolio', false);
+        renderImages(vList, gallery.vip, 'vip', false);
     }
 
-    function renderImages(container, images, category) {
-        container.innerHTML = '';
+    function renderImages(container, images, category, isPermanent) {
+        if (!isPermanent && images.length === 0) return;
+
         images.forEach((imgSrc, index) => {
             const div = document.createElement('div');
             div.style.position = 'relative';
             div.innerHTML = `
-                <img src="${imgSrc}" style="width:100%; height:80px; object-fit:cover; border-radius:5px; border:1px solid #ddd;">
-                <button onclick="deleteImage('${category}', ${index})" style="position:absolute; top:0; right:0; background:red; color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:12px; cursor:pointer;">&times;</button>
+                <img src="${imgSrc}" style="width:100%; height:80px; object-fit:cover; border-radius:5px; border:1px solid #ddd; ${isPermanent ? 'border-color: #ff6b81;' : ''}">
+                ${isPermanent
+                    ? '<span style="position:absolute; bottom:0; width:100%; background:rgba(255,107,129,0.8); color:white; font-size:10px; text-align:center; border-radius:0 0 5px 5px;">FIXO</span>'
+                    : `<button onclick="deleteImage('${category}', ${index})" style="position:absolute; top:0; right:0; background:red; color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:12px; cursor:pointer;">&times;</button>`
+                }
             `;
             container.appendChild(div);
         });
