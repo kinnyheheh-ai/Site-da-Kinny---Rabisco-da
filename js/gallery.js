@@ -18,7 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ? savedGallery.portfolio.map(src => ({ src, category: 'all', title: 'Arte Adicionada' }))
         : [];
 
-    const fullPortfolio = [...defaultGallery.portfolio, ...localPortfolio];
+    // Merge and remove duplicates (by src)
+    const combined = [...defaultGallery.portfolio, ...localPortfolio];
+    const uniqueMap = new Map();
+    combined.forEach(item => {
+        if (!uniqueMap.has(item.src)) {
+            uniqueMap.set(item.src, item);
+        }
+    });
+
+    const fullPortfolio = Array.from(uniqueMap.values());
 
     // === Load All Images ===
     if (fullPortfolio.length > 0) {
