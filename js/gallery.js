@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Gallery Data (Permanent + Local) ===
     const defaultGallery = {
         portfolio: [
-            { src: 'images/portfolio/oc_green.png', category: 'oc', title: 'Minha OC' }
+            { src: 'images/portfolio/YAN DESENHO!!!.png', category: 'oc', title: 'Minha OC' }
             // Adicione mais artes aqui seguindo o padrão acima!
         ]
     };
@@ -74,9 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // As we are using placeholders, we'll clone the content or set bg color
     // For real images: modalImg.src = this.querySelector('img').src;
 
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    // Re-highlight or re-query for modal usage
+    const itemsForModal = document.querySelectorAll('.gallery-item');
 
-    galleryItems.forEach(item => {
+    itemsForModal.forEach(item => {
         item.addEventListener('click', function () {
             const img = this.querySelector('img');
             const title = this.querySelector('.item-title') ? this.querySelector('.item-title').textContent : 'Arte';
