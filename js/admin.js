@@ -486,4 +486,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // === EXPORT / IMPORT SETTINGS ===
+    const exportBtn = document.getElementById('btn-export-settings');
+    const importInput = document.getElementById('import-file');
+
+    if (exportBtn) {
+        exportBtn.addEventListener('click', () => {
+            const exportData = {
+                siteSettings: JSON.parse(localStorage.getItem('siteSettings')),
+                siteGallery: JSON.parse(localStorage.getItem('siteGallery')),
+                siteOrders: JSON.parse(localStorage.getItem('siteOrders')),
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `rabiscos-kinny-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('Backup exportado com sucesso! 📥\nSalve o arquivo baixado e use-o para importar no outro navegador.');
+        });
+    }
+
+    if (importInput) {
+        importInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+
+                    if (!data.siteSettings && !data.siteGallery && !data.siteOrders) {
+                        alert('❌ Arquivo inválido! Certifique-se de que é um backup exportado deste site.');
+                        return;
+                    }
+
+                    if (confirm(`📦 Backup encontrado!\n\nData: ${data.exportDate ? new Date(data.exportDate).toLocaleString() : 'Desconhecida'}\n\nDeseja restaurar as configurações? Isso substituirá os dados atuais.`)) {
+                        if (data.siteSettings) localStorage.setItem('siteSettings', JSON.stringify(data.siteSettings));
+                        if (data.siteGallery) localStorage.setItem('siteGallery', JSON.stringify(data.siteGallery));
+                        if (data.siteOrders) localStorage.setItem('siteOrders', JSON.stringify(data.siteOrders));
+
+                        alert('✅ Configurações restauradas com sucesso! A página será recarregada.');
+                        location.reload();
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('❌ Erro ao ler o arquivo. Certifique-se de que é um arquivo JSON válido.');
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = ''; // Reset input
+        });
+    }
 });
