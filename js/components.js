@@ -5,7 +5,7 @@
 function injectComponents() {
     const headerHTML = `
     <div class="container nav-container">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="Rabiscos da Kinny" style="height: 50px;"></a>
+        <a href="index.html" class="logo">✨ Rabiscos da Kinny</a>
         <nav>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link" data-lang="nav_home">Início</a></li>
