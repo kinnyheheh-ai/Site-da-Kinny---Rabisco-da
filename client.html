@@ -146,7 +146,25 @@
 
                 <div id="download-area" style="margin-top: 20px; text-align: center; display: none;">
                     <p style="margin-bottom: 10px;">✨ Seu pedido está pronto!</p>
-                    <a id="download-btn" href="#" target="_blank" class="btn btn-primary">📥 Baixar Arte</a>
+                    <a id="download-btn" href="#" target="_blank" class="btn btn-primary"
+                        style="width: 100%; margin-bottom: 15px;">📥 Baixar Arte</a>
+
+                    <!-- Feedback Section -->
+                    <div id="feedback-area"
+                        style="border-top: 1px dashed var(--primary-light); padding-top: 15px; margin-top: 15px;">
+                        <h4 data-lang="feedback_title">Deixe seu Feedback ✨</h4>
+                        <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px;" data-lang="feedback_desc">O que
+                            achou da sua arte? Sua opinião me ajuda a crescer!</p>
+                        <textarea id="feedback-text" class="admin-input"
+                            style="width: 100%; padding: 10px; height: 80px; margin-bottom: 10px;"
+                            data-lang-placeholder="feedback_placeholder"
+                            placeholder="Escreva sua mensagem aqui..."></textarea>
+                        <button id="submit-feedback-btn" class="btn btn-outline" style="width: 100%;"
+                            data-lang="feedback_submit">Enviar Feedback</button>
+                        <p id="feedback-success-msg"
+                            style="display: none; color: var(--primary-color); font-weight: bold; margin-top: 10px;"
+                            data-lang="feedback_success">Obrigada pelo carinho! 😍</p>
+                    </div>
                 </div>
             </div>
             <p id="lookup-error" style="color: red; margin-top: 20px; display: none;">Pedido não encontrado!</p>
@@ -195,6 +213,22 @@
                 statusEl.innerText = statusText;
                 statusEl.style.backgroundColor = statusColor;
                 statusEl.style.color = 'white';
+
+                // Handle Feedback Submission
+                const feedbackBtn = document.getElementById('submit-feedback-btn');
+                const feedbackText = document.getElementById('feedback-text');
+                const feedbackMsg = document.getElementById('feedback-success-msg');
+
+                feedbackBtn.onclick = () => {
+                    if (feedbackText.value.trim().length < 3) return;
+
+                    feedbackBtn.style.display = 'none';
+                    feedbackText.style.display = 'none';
+                    feedbackMsg.style.display = 'block';
+
+                    // In a real app, we would send this to a server
+                    console.log(`Feedback for order ${order.id}: ${feedbackText.value}`);
+                };
 
             } else {
                 result.style.display = 'none';

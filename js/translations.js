@@ -34,9 +34,25 @@ const translations = {
 
         // Rules
         rules_do_title: "✅ Eu faço:",
-        rules_do_list: "<li>Fanarts (Jogos, Animes, Mangás)</li><li>Personagens Originais (OCs)</li><li>Design de Personagens / Concept Art</li><li>Pets e Criaturas fofas</li><li>Ilustrações de casais (SFW)</li>",
+        rules_do_list: "<li>Fanarts (Jogos, Animes, Mangás)</li><li>Personagens Originais (OCs)</li><li>Desenhos de Vtuber (Não faço a animação)</li><li>Vinhetas / Intros (YouTube e outras plataformas)</li><li>Design de Personagens / Concept Art</li><li>Pets e Criaturas fofas</li><li>Ilustrações de casais (SFW)</li>",
         rules_dont_title: "❌ Eu NÃO faço:",
-        rules_dont_list: "<li>NSFW / Conteúdo adulto</li><li>Gore / Violência extrema</li><li>Realismo extremo</li><li>Mecha / Robôs complexos</li><li>Ideologias ofensivas</li>"
+        rules_dont_list: "<li>NSFW / Conteúdo adulto</li><li>Gore / Violência extrema</li><li>Realismo extremo</li><li>Mecha / Robôs complexos</li><li>Ideologias ofensivas</li>",
+
+        // Testimonials
+        section_testimonials: "O que dizem os clientes",
+        test_1_text: "A Kinny transformou minha OC em algo mágico! O processo foi super atencioso e o resultado ficou fofíssimo. ✨",
+        test_1_author: "- Julia M.",
+        test_2_text: "Melhor experiência de comissão que já tive. Super profissional e os detalhes da arte são surreais! 💖",
+        test_2_author: "- Carlos H.",
+        test_3_text: "A entrega foi rápida e a arte ficou perfeita para o meu canal. Recomendo muito! 🌸",
+        test_3_author: "- Luna_Chan",
+
+        // Feedback
+        feedback_title: "Deixe seu Feedback ✨",
+        feedback_desc: "O que achou da sua arte? Sua opinião me ajuda a crescer!",
+        feedback_placeholder: "Escreva sua mensagem aqui...",
+        feedback_submit: "Enviar Feedback",
+        feedback_success: "Obrigada pelo carinho! 😍"
     },
     en: {
         nav_home: "Home",
@@ -73,8 +89,24 @@ const translations = {
 
         // Rules
         rules_do_title: "✅ I do:",
-        rules_do_list: "<li>Fanart (Games, Anime, Manga)</li><li>Original Characters (OCs)</li><li>Character Design / Concept Art</li><li>Pets and cute creatures</li><li>Couple illustrations (SFW)</li>",
+        rules_do_list: "<li>Fanart (Games, Anime, Manga)</li><li>Original Characters (OCs)</li><li>Vtuber Drawings (No animation)</li><li>Video Intros (YouTube and other platforms)</li><li>Character Design / Concept Art</li><li>Pets and cute creatures</li><li>Couple illustrations (SFW)</li>",
         rules_dont_title: "❌ I DON'T do:",
-        rules_dont_list: "<li>NSFW / Adult content</li><li>Gore / Extreme violence</li><li>Extreme realism</li><li>Mecha / Complex robots</li><li>Offensive ideologies</li>"
+        rules_dont_list: "<li>NSFW / Adult content</li><li>Gore / Extreme violence</li><li>Extreme realism</li><li>Mecha / Complex robots</li><li>Offensive ideologies</li>",
+
+        // Testimonials
+        section_testimonials: "What Clients Say",
+        test_1_text: "Kinny turned my OC into something magical! The process was very attentive and the result was so cute. ✨",
+        test_1_author: "- Julia M.",
+        test_2_text: "Best commission experience I've ever had. Super professional and the art details are surreal! 💖",
+        test_2_author: "- Carlos H.",
+        test_3_text: "Delivery was fast and the art was perfect for my channel. I highly recommend it! 🌸",
+        test_3_author: "- Luna_Chan",
+
+        // Feedback
+        feedback_title: "Leave your Feedback ✨",
+        feedback_desc: "What did you think of your art? Your opinion helps me grow!",
+        feedback_placeholder: "Write your message here...",
+        feedback_submit: "Send Feedback",
+        feedback_success: "Thank you for the support! 😍"
     }
 };

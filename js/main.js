@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const settings = JSON.parse(localStorage.getItem('siteSettings'));
         if (!settings || !settings.contact) return; // Use defaults if nothing saved
 
-        const { tiktok } = settings.contact;
+        const { tiktok, youtube } = settings.contact;
 
         // Update TikTok Links (Footer & Commissions Page)
         document.querySelectorAll('a[title="TikTok"], a[href*="tiktok.com"]').forEach(link => {
@@ -50,10 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.href = tiktok;
                 // Update text if it contains the handle
                 if (link.textContent.includes('@')) {
-                    // Try to extract handle from URL or just show generic text if complex
                     const handle = tiktok.split('/').pop();
                     link.textContent = `🎵 TikTok: ${handle}`;
                 }
+            }
+        });
+
+        // Update YouTube Links
+        document.querySelectorAll('a[title="YouTube"], a[href*="youtube.com"]').forEach(link => {
+            if (youtube) {
+                link.href = youtube;
             }
         });
 

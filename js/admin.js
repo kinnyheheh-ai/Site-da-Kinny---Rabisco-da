@@ -12,57 +12,95 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadInput = document.getElementById('image-upload');
     const uploadCat = document.getElementById('upload-category');
 
-    if (uploadBtn) {
-        uploadBtn.addEventListener('click', () => {
-            if (uploadInput.files && uploadInput.files[0]) {
-                const file = uploadInput.files[0];
-                const category = uploadCat.value;
+    // Expose for HTML onchange
+    window.togglePsdOptions = function (val) {
+        const container = document.getElementById('psd-options-container');
+        if (container) {
+            container.style.display = (val === 'vip') ? 'block' : 'none';
+        }
+    };
 
+    if (uploadBtn) {
+        uploadBtn.addEventListener('click', async () => {
+            const imageFile = uploadInput.files[0];
+            const psdFile = document.getElementById('psd-upload').files[0];
+            const sourceLink = document.getElementById('source-link').value.trim();
+            const uploadTitle = document.getElementById('upload-title').value.trim();
+            const category = uploadCat.value;
+
+            if (!imageFile) {
+                alert('Por favor, selecione uma imagem de capa.');
+                return;
+            }
+
+            // Function to read file as Base64
+            const readFile = (file) => new Promise((resolve) => {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+
+            try {
+                // 1. Process Image (Compress)
+                const imgData = await readFile(imageFile);
+                const compressedImg = await new Promise((resolve) => {
                     const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function () {
-                        // Compress
+                    img.src = imgData;
+                    img.onload = () => {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
-
-                        // Max dimensions
-                        const MAX_WIDTH = 800;
-                        const MAX_HEIGHT = 800;
+                        const MAX_SIZE = 800;
                         let width = img.width;
                         let height = img.height;
 
                         if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
+                            if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; }
                         } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                            if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; }
                         }
 
                         canvas.width = width;
                         canvas.height = height;
                         ctx.drawImage(img, 0, 0, width, height);
-
-                        // Get Base64
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7); // 70% quality
-
-                        // Save
-                        const gallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [], vip: [] };
-                        gallery[category].push(dataUrl);
-                        localStorage.setItem('siteGallery', JSON.stringify(gallery));
-
-                        alert('Imagem adicionada com sucesso!');
-                        uploadInput.value = ''; // clear
-                        loadGalleryImages();
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
                     };
-                };
-                reader.readAsDataURL(file);
+                });
+
+                // 2. Process PSD/Source (Only for VIP)
+                let finalSource = null;
+                if (category === 'vip') {
+                    finalSource = sourceLink;
+                    if (psdFile) {
+                        if (psdFile.size > 2 * 1024 * 1024) { // 2MB Limit
+                            alert('O arquivo direto é muito grande! Use um link do Drive/Dropbox para arquivos maiores que 2MB.');
+                            return;
+                        }
+                        finalSource = await readFile(psdFile);
+                    }
+                }
+
+                // 3. Save
+                const gallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [], vip: [] };
+                gallery[category].push({
+                    src: compressedImg,
+                    download: finalSource,
+                    title: uploadTitle || (category === 'vip' ? 'Conteúdo VIP' : 'Arte Adicionada'),
+                    category: 'all'
+                });
+
+                localStorage.setItem('siteGallery', JSON.stringify(gallery));
+                alert('Arte adicionada com sucesso! ✨');
+
+                // Clear
+                uploadInput.value = '';
+                document.getElementById('psd-upload').value = '';
+                document.getElementById('source-link').value = '';
+                document.getElementById('upload-title').value = '';
+                loadGalleryImages();
+
+            } catch (err) {
+                console.error(err);
+                alert('Erro ao processar arquivos. Tente novamente.');
             }
         });
     }
@@ -70,32 +108,67 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadGalleryImages() {
         const pList = document.getElementById('gallery-list-portfolio');
         const vList = document.getElementById('gallery-list-vip');
-
         if (!pList || !vList) return;
 
-        const gallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [], vip: [] };
+        pList.innerHTML = '';
+        vList.innerHTML = '';
 
-        // Render Permanent first
-        if (typeof defaultGallery !== 'undefined') {
-            renderImages(pList, defaultGallery.portfolio.map(i => i.src), 'portfolio', true);
-            renderImages(vList, defaultGallery.vip.map(i => i.src), 'vip', true);
+        const savedGallery = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [], vip: [] };
+
+        // --- Auto-Cleanup (Remove broken or duplicate entries) ---
+        const cleanList = (list) => {
+            return (list || []).filter(item => {
+                const src = typeof item === 'string' ? item : item?.src;
+                if (!src || src.length < 10) return false;
+
+                // Check for redundancy with gallery-data.js
+                const fileName = src.includes('/') ? src.split('/').pop() : null;
+                if (fileName && typeof defaultGallery !== 'undefined') {
+                    const isPermanent = defaultGallery.portfolio.some(p => p.src.includes(fileName));
+                    if (isPermanent) return false;
+                }
+                return true;
+            });
+        };
+
+        const cleanedPortfolio = cleanList(savedGallery.portfolio);
+        const cleanedVip = cleanList(savedGallery.vip);
+
+        // Save cleaned version if changed
+        if (cleanedPortfolio.length !== (savedGallery.portfolio || []).length ||
+            cleanedVip.length !== (savedGallery.vip || []).length) {
+            localStorage.setItem('siteGallery', JSON.stringify({ portfolio: cleanedPortfolio, vip: cleanedVip }));
         }
 
-        renderImages(pList, gallery.portfolio, 'portfolio', false);
-        renderImages(vList, gallery.vip, 'vip', false);
+        // Render Local
+        renderImages(pList, cleanedPortfolio, 'portfolio', false);
+        renderImages(vList, cleanedVip, 'vip', false);
+
+        // Render Permanent
+        if (typeof defaultGallery !== 'undefined') {
+            const pPerm = defaultGallery.portfolio.map(i => i.src);
+            const vPerm = defaultGallery.vip.map(i => i.src);
+            renderImages(pList, pPerm, 'portfolio', true);
+            renderImages(vList, vPerm, 'vip', true);
+        }
     }
 
     function renderImages(container, images, category, isPermanent) {
-        if (!isPermanent && images.length === 0) return;
+        if (!images || images.length === 0) return;
 
-        images.forEach((imgSrc, index) => {
+        images.forEach((item, index) => {
+            // Handle migration from string to object
+            const src = typeof item === 'string' ? item : item.src;
+            const download = (item && item.download) ? item.download : null;
+
             const div = document.createElement('div');
             div.style.position = 'relative';
             div.innerHTML = `
-                <img src="${imgSrc}" style="width:100%; height:80px; object-fit:cover; border-radius:5px; border:1px solid #ddd; ${isPermanent ? 'border-color: #ff6b81;' : ''}">
+                <img src="${src}" style="width:100%; height:80px; object-fit:cover; border-radius:5px; border:1px solid #ddd; ${isPermanent ? 'border-color: var(--primary-color);' : ''}">
+                ${download ? '<span title="Possui PSD" style="position:absolute; top:5px; left:5px; background:white; border-radius:50%; width:15px; height:15px; display:flex; align-items:center; justify-content:center; font-size:10px; box-shadow:0 1px 3px rgba(0,0,0,0.3);">📄</span>' : ''}
                 ${isPermanent
-                    ? '<span style="position:absolute; bottom:0; width:100%; background:rgba(255,107,129,0.8); color:white; font-size:10px; text-align:center; border-radius:0 0 5px 5px;">FIXO</span>'
-                    : `<button onclick="deleteImage('${category}', ${index})" style="position:absolute; top:0; right:0; background:red; color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:12px; cursor:pointer;">&times;</button>`
+                    ? '<span style="position:absolute; bottom:0; width:100%; background:var(--primary-color); color:white; font-size:9px; text-align:center; border-radius:0 0 5px 5px; font-weight:bold; letter-spacing:1px;">FIXO</span>'
+                    : `<button onclick="deleteImage('${category}', ${index})" style="position:absolute; top:-5px; right:-5px; background:red; color:white; border:none; border-radius:50%; width:22px; height:22px; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">×</button>`
                 }
             `;
             container.appendChild(div);
@@ -169,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         status: 'open',
         contact: {
             tiktok: 'https://www.tiktok.com/@guaxinim_kinny_ofc',
-            kofi: 'https://ko-fi.com/kinnyheheh'
+            youtube: 'https://youtube.com/@kinnyheheh'
         },
         visual: {
             color: '#ff6b81', // Approximate pink from screenshot
@@ -182,8 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         availability: {
             icon: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' },
             bust: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' },
-            fullbody: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' },
-            kofi: { active: false, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' }
+            fullbody: { active: true, msg: 'Ops, esta opção não estão disponiveis! Desculpe...' }
         },
         vipStatus: {
             active: true,
@@ -202,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         char: document.getElementById('addon-char'),
         status: document.getElementById('commissions-status-select'),
         tiktok: document.getElementById('contact-tiktok'),
-        kofi: document.getElementById('contact-kofi'),
+        youtube: document.getElementById('contact-youtube'),
         color: document.getElementById('theme-color'),
         avatar: document.getElementById('site-avatar'),
         msgOpen: document.getElementById('msg-open'),
@@ -214,8 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msgBust: document.getElementById('msg-bust'),
         statusFullbody: document.getElementById('status-fullbody'),
         msgFullbody: document.getElementById('msg-fullbody'),
-        statusKofi: document.getElementById('status-kofi'),
-        msgKofi: document.getElementById('msg-kofi'),
+        msgFullbody: document.getElementById('msg-fullbody'),
         vipActive: document.getElementById('vip-active'),
         vipMsg: document.getElementById('vip-msg-unavailable')
     };
@@ -238,8 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (inputs.status) inputs.status.value = storedSettings.status;
 
-        if (inputs.tiktok) inputs.tiktok.value = storedSettings.contact ? storedSettings.contact.tiktok : defaults.contact.tiktok;
-        if (inputs.kofi) inputs.kofi.value = storedSettings.contact && storedSettings.contact.kofi ? storedSettings.contact.kofi : defaults.contact.kofi;
+        if (inputs.tiktok) inputs.tiktok.value = storedSettings.contact && storedSettings.contact.tiktok ? storedSettings.contact.tiktok : defaults.contact.tiktok;
+        if (inputs.youtube) inputs.youtube.value = storedSettings.contact && storedSettings.contact.youtube ? storedSettings.contact.youtube : defaults.contact.youtube;
 
         // Visuals
         if (inputs.color) inputs.color.value = storedSettings.visual ? storedSettings.visual.color : defaults.visual.color;
@@ -257,8 +328,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputs.msgBust) inputs.msgBust.value = av.bust.msg;
         if (inputs.statusFullbody) inputs.statusFullbody.checked = av.fullbody.active;
         if (inputs.msgFullbody) inputs.msgFullbody.value = av.fullbody.msg;
-        if (inputs.statusKofi) inputs.statusKofi.checked = av.kofi ? av.kofi.active : defaults.availability.kofi.active;
-        if (inputs.msgKofi) inputs.msgKofi.value = av.kofi ? av.kofi.msg : defaults.availability.kofi.msg;
+        if (inputs.statusFullbody) inputs.statusFullbody.checked = av.fullbody.active;
+        if (inputs.msgFullbody) inputs.msgFullbody.value = av.fullbody.msg;
 
         // VIP Status
         const vip = storedSettings.vipStatus || defaults.vipStatus;
@@ -283,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 status: inputs.status.value,
                 contact: {
                     tiktok: inputs.tiktok.value,
-                    kofi: inputs.kofi.value
+                    youtube: inputs.youtube.value
                 },
                 visual: {
                     color: inputs.color.value,
@@ -296,8 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 availability: {
                     icon: { active: inputs.statusIcon.checked, msg: inputs.msgIcon.value },
                     bust: { active: inputs.statusBust.checked, msg: inputs.msgBust.value },
-                    fullbody: { active: inputs.statusFullbody.checked, msg: inputs.msgFullbody.value },
-                    kofi: { active: inputs.statusKofi.checked, msg: inputs.msgKofi.value }
+                    fullbody: { active: inputs.statusFullbody.checked, msg: inputs.msgFullbody.value }
                 },
                 vipStatus: {
                     active: inputs.vipActive.checked,
@@ -403,5 +473,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if already logged in (Run after everything is initialized)
     if (localStorage.getItem('adminLoggedIn') === 'true') {
         showDashboard();
+    }
+
+    // Clear Cache Functionality
+    const clearCacheBtn = document.getElementById('btn-clear-cache');
+    if (clearCacheBtn) {
+        clearCacheBtn.addEventListener('click', () => {
+            if (confirm('⚠️ Deseja realmente limpar o cache da galeria? Isso removerá todas as imagens que você subiu pelo painel (as imagens fixas permanecerão).')) {
+                localStorage.removeItem('siteGallery');
+                alert('Cache limpo com sucesso! ✨');
+                loadGalleryImages();
+            }
+        });
     }
 });

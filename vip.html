@@ -159,7 +159,7 @@
                 if (animate) {
                     localStorage.setItem('vipUnlocked', 'true');
                 }
-                loadVIPContent();
+                // No need to call loadVIPContent manually, gallery.js already handles it
             }
 
             if (localStorage.getItem('vipUnlocked') === 'true') {
@@ -175,42 +175,24 @@
                     unlock(true);
                 }, 1500);
             });
-
-            function loadVIPContent() {
-                const vipContainer = document.getElementById('vip-dynamic-gallery');
-                if (!vipContainer) return;
-
-                const savedGallery = JSON.parse(localStorage.getItem('siteGallery')) || {
-                    vip: []
-                };
-
-                if (savedGallery.vip && savedGallery.vip.length > 0) {
-                    vipContainer.innerHTML = ''; // Clear
-                    savedGallery.vip.forEach(imgSrc => {
-                        const item = document.createElement('div');
-                        item.className = 'gallery-item';
-                        item.innerHTML = `<img src="${imgSrc}" alt="Conteúdo VIP" class="gallery-img">`;
-                        item.onclick = () => {
-                            if (window.openModal) window.openModal(imgSrc, 'Conteúdo VIP');
-                        };
-                        vipContainer.appendChild(item);
-                    });
-                } else {
-                    vipContainer.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: gray;">
-                            <p>Ainda não há novas artes exclusivas esta semana.</p>
-                            <p style="font-size: 0.8rem;">Fique de olho no TikTok para novidades!</p>
-                        </div>
-                    `;
-                }
-            }
         });
     </script>
+
+    <!-- Modal -->
+    <div id="gallery-modal" class="modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" class="modal-img" src="" alt="" loading="lazy">
+            <div id="modal-caption" class="modal-caption"></div>
+        </div>
+    </div>
 
     <footer></footer>
 
     <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/gallery-data.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 
 </html>

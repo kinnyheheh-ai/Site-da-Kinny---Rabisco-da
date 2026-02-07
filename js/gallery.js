@@ -10,15 +10,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Convert old simple array to object if necessary or handle both
     const localPortfolio = Array.isArray(savedGallery.portfolio)
-        ? savedGallery.portfolio.map(src => ({ src, category: 'all', title: 'Arte Adicionada' }))
+        ? savedGallery.portfolio
+            .filter(item => {
+                const src = typeof item === 'string' ? item : item?.src;
+                return src && src.length > 10; // Filter out broken/empty
+            })
+            .map(item => {
+                if (typeof item === 'string') return { src: item, category: 'all', title: 'Arte Adicionada' };
+                return item;
+            })
         : [];
 
-    // Merge and remove duplicates (by src)
+    // Merge and remove duplicates (Aggressive Fuzzy Deduplication)
     const combined = [...data.portfolio, ...localPortfolio];
     const uniqueMap = new Map();
+    const cleanStr = (s) => s ? s.toLowerCase().replace(/[^a-z0-9]/g, '').trim() : '';
+
     combined.forEach(item => {
-        if (!uniqueMap.has(item.src)) {
-            uniqueMap.set(item.src, item);
+        if (!item.src) return;
+        const isPerm = item.src.includes('images/');
+        const fileName = item.src.includes('/') ? item.src.split('/').pop() : '';
+        const cleanName = cleanStr(fileName.split('.')[0] || item.title);
+
+        let key = isPerm ? cleanName : (cleanName || item.src.substring(0, 50));
+
+        // Fuzzy check
+        let foundKey = null;
+        for (let existingKey of uniqueMap.keys()) {
+            if (existingKey && key && (existingKey.includes(key) || key.includes(existingKey))) {
+                foundKey = existingKey;
+                break;
+            }
+        }
+
+        if (foundKey) {
+            const existingIsPerm = uniqueMap.get(foundKey).src.includes('images/');
+            if (!existingIsPerm && isPerm) {
+                uniqueMap.delete(foundKey);
+                uniqueMap.set(key, item);
+            }
+        } else {
+            uniqueMap.set(key, item);
         }
     });
 
@@ -32,12 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
             item.className = 'gallery-item';
             item.setAttribute('data-category', itemData.category);
 
+            // Handle metadata if present
+            const hasDownload = itemData.download ? true : false;
+
             item.innerHTML = `
                 <img src="${itemData.src}" alt="${itemData.title}" loading="lazy">
+                ${hasDownload ? '<div class="download-badge" title="Arquivo PSD Disponível">📄 PSD</div>' : ''}
                 <div class="item-overlay">
                     <h3 class="item-title">${itemData.title}</h3>
                 </div>
             `;
+            if (hasDownload) {
+                item.setAttribute('data-download', itemData.download);
+            }
 
             galleryGrid.appendChild(item);
         });
@@ -75,31 +114,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalCaption = document.getElementById('modal-caption');
     const closeBtn = document.querySelector('.modal-close');
 
-    // As we are using placeholders, we'll clone the content or set bg color
-    // For real images: modalImg.src = this.querySelector('img').src;
+    function openModal(src, title, download = null) {
+        if (!modal) return;
+        modalImg.src = src;
+        modalImg.style.display = 'block';
+        modalImg.alt = title;
+        modalCaption.innerText = title;
 
-    // Re-highlight or re-query for modal usage
-    const itemsForModal = document.querySelectorAll('.gallery-item');
+        if (download) {
+            modalCaption.innerHTML += `<br><a href="${download}" target="_blank" class="btn btn-primary" style="margin-top:20px; display:inline-block; font-size:0.9rem; padding: 12px 25px;">📥 Baixar Arquivo Fonte (PSD/Original)</a>`;
+        }
 
-    itemsForModal.forEach(item => {
-        item.addEventListener('click', function () {
-            const img = this.querySelector('img');
-            const title = this.querySelector('.item-title') ? this.querySelector('.item-title').textContent : 'Arte';
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
 
-            if (img && img.src) {
-                modalImg.src = img.src;
-                modalImg.style.display = 'block';
-                modalImg.alt = title;
-                modalCaption.textContent = title;
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            }
-        });
+    // Expose for dynamic content
+    window.openModal = openModal;
+
+    // Delegate click for gallery items
+    document.addEventListener('click', (e) => {
+        const item = e.target.closest('.gallery-item');
+        if (item) {
+            const img = item.querySelector('img');
+            const title = item.querySelector('.item-title') ? item.querySelector('.item-title').textContent : 'Arte';
+            const download = item.getAttribute('data-download');
+            if (img) openModal(img.src, title, download);
+        }
     });
 
     function closeModal() {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
+        if (modal) {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
     }
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);

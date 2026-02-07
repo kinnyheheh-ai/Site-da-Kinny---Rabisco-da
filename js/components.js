@@ -26,12 +26,12 @@ function injectComponents() {
     const footerHTML = `
     <div class="container">
         <div class="social-links">
-            <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon" title="TikTok" aria-label="TikTok">🎵 TikTok</a>
-            <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">📸 Instagram</a>
-            <a href="#" class="social-icon" title="Portfolio" aria-label="Portfolio">🖌️ Portfólio</a>
+            <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon" title="TikTok" aria-label="TikTok">🎵<span>TikTok</span></a>
+            <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">📺<span>YouTube</span></a>
         </div>
         <div class="credits">
-            <p>&copy; 2024 Rabiscos da Kinny. <span data-lang="footer_rights">Todos os direitos reservados.</span></p>
+            <p data-lang="footer_rights">&copy; 2024 Rabiscos da Kinny. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Feito com carinho para transformar sonhos em arte ✨</p>
         </div>
     </div>`;
 

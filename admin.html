@@ -176,6 +176,11 @@
                         <input type="text" id="contact-tiktok" class="admin-input" style="width: 100%;"
                             placeholder="https://tiktok.com/@...">
                     </div>
+                    <div class="form-group">
+                        <label>YouTube URL</label>
+                        <input type="text" id="contact-youtube" class="admin-input" style="width: 100%;"
+                            placeholder="https://youtube.com/@...">
+                    </div>
                 </div>
 
                 <!-- Visual Settings -->
@@ -241,46 +246,96 @@
                     </div>
                 </div>
 
-                <h4 style="margin-bottom: 10px;">Adicionar Nova Imagem</h4>
-                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                    <select id="upload-category" class="admin-input">
-                        <option value="portfolio">Portfólio (Público)</option>
-                        <option value="vip">VIP (Privado)</option>
-                    </select>
-                    <input type="file" id="image-upload" accept="image/*" class="admin-input">
-                    <button id="btn-upload" class="btn btn-primary" style="padding: 10px 20px;">Enviar</button>
-                </div>
-                <small style="color: gray;">Nota: Imagens serão redimensionadas para economizar espaço.</small>
-            </div>
+                <div style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 8px;">
+                    <div class="form-group">
+                        <label style="font-size: 0.9rem; font-weight: bold;">1. Onde postar?</label>
+                        <select id="upload-category" class="admin-input" style="width: 100%;"
+                            onchange="togglePsdOptions(this.value)">
+                            <option value="portfolio">Portfólio (Público)</option>
+                            <option value="vip">VIP (Privado)</option>
+                        </select>
+                    </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div>
-                    <h4>Imagens do Portfólio</h4>
-                    <div id="gallery-list-portfolio"
-                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
-                        <!-- Images injected by JS -->
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label style="font-size: 0.9rem; font-weight: bold;">2. Título da Arte:</label>
+                        <input type="text" id="upload-title" class="admin-input"
+                            placeholder="Dê um nome para sua obra ✨" style="width: 100%;">
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <label style="font-size: 0.8rem; display: block; margin-bottom: 5px; font-weight: bold;">3. Capa
+                            (JPG/PNG):</label>
+                        <input type="file" id="image-upload" accept="image/*" class="admin-input" style="width: 100%;">
+                    </div>
+
+                    <!-- PSD Options (Hidden for Portfolio by default) -->
+                    <div id="psd-options-container"
+                        style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div class="form-group">
+                                <label
+                                    style="font-size: 0.8rem; display: block; margin-bottom: 5px; font-weight: bold;">4.
+                                    Link do PSD (Drive/etc):</label>
+                                <input type="url" id="source-link" class="admin-input" placeholder="https://..."
+                                    style="width: 100%;">
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    style="font-size: 0.8rem; display: block; margin-bottom: 5px; font-weight: bold;">5.
+                                    Arquivo no PC (Máx 2MB):</label>
+                                <input type="file" id="psd-upload" accept=".psd,.zip,.rar,.png,.jpg" class="admin-input"
+                                    style="width: 100%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h4>Imagens VIP</h4>
-                    <div id="gallery-list-vip"
-                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
-                        <!-- Images injected by JS -->
-                    </div>
+                <button id="btn-upload" class="btn btn-primary"
+                    style="padding: 10px 30px; margin-top: 20px; width: 100%;">🚀 Adicionar à Galeria</button>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+                <div style="text-align: center;">
+                    <p style="font-size: 0.8rem; color: #b71c1c; margin-bottom: 10px;">⚠️ Problemas com duplicatas ou
+                        imagens quebradas?</p>
+                    <button id="btn-clear-cache" class="btn"
+                        style="background: #ffebee; color: #b71c1c; border: 1px solid #ffcdd2; font-size: 0.8rem; padding: 5px 15px;">🧹
+                        Limpar Cache da Galeria</button>
+                    <p style="font-size: 0.7rem; color: gray; margin-top: 5px;">(Isso remove imagens que você subiu pelo
+                        painel, mas não as artes fixas)</p>
+                </div>
+            </div>
+            <small style="color: gray;">Nota: Imagens serão redimensionadas para economizar espaço.</small>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <h4>Imagens do Portfólio</h4>
+                <div id="gallery-list-portfolio"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
+                    <!-- Images injected by JS -->
+                </div>
+            </div>
+            <div>
+                <h4>Imagens VIP</h4>
+                <div id="gallery-list-vip"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 10px;">
+                    <!-- Images injected by JS -->
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Orders System -->
-        <div class="admin-card" style="grid-column: 1 / -1;">
-            <h3>📦 Gerenciar Pedidos</h3>
-            <p style="margin-bottom: 20px; font-size: 0.9rem;">Veja e atualize o status dos pedidos.</p>
+    <!-- Orders System -->
+    <div class="admin-card" style="grid-column: 1 / -1;">
+        <h3>📦 Gerenciar Pedidos</h3>
+        <p style="margin-bottom: 20px; font-size: 0.9rem;">Veja e atualize o status dos pedidos.</p>
 
-            <div id="orders-list" style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Orders will be injected here by JS -->
-                <p style="text-align: center; color: gray;">Nenhum pedido ainda.</p>
-            </div>
+        <div id="orders-list" style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- Orders will be injected here by JS -->
+            <p style="text-align: center; color: gray;">Nenhum pedido ainda.</p>
         </div>
+    </div>
 
     </div>
     </div>
