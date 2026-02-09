@@ -22,3 +22,7 @@ Um site estático leve, fofo e profissional para exibir artes, tabelas de comiss
 - Design responsivo.
 
 Desenvolvido com 💖.
+
+## 🔄 Atualizações Recentes
+- Correção do loader da página (página infinita).
+- Melhorias no formulário de contato.
