@@ -7,7 +7,6 @@
     <meta name="description"
         content="Área VIP exclusiva para seguidores da Kinny. Acesse rascunhos, processos e artes inéditas!">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rabiscosdakinny.art/vip.html">
     <meta property="og:title" content="Área VIP | Rabiscos da Kinny">
@@ -23,11 +22,12 @@
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/variables.css?v=1.1">
-    <link rel="stylesheet" href="css/global.css?v=1.1">
-    <link rel="stylesheet" href="css/components.css?v=1.1">
-    <link rel="stylesheet" href="css/mobile.css?v=1.1">
-    <script src="js/components.js" defer></script>
+    <link rel="stylesheet" href="css/variables.css?v=2.0">
+    <link rel="stylesheet" href="css/global.css?v=2.0">
+    <link rel="stylesheet" href="css/components.css?v=2.0">
+    <link rel="stylesheet" href="css/gallery.css?v=2.0">
+    <link rel="stylesheet" href="css/mobile.css?v=2.0">
+    <script src="js/components.js?v=2.0" defer></script>
     <style>
         .vip-banner {
             background: linear-gradient(135deg, var(--bg-soft) 0%, var(--primary-light) 60%, var(--secondary-color) 100%);
@@ -36,83 +36,64 @@
             text-align: center;
             color: var(--text-color);
             margin-bottom: 60px;
-            border: 2px solid white;
+            border: 1px solid var(--primary-light);
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
-        }
-
-        .vip-banner::before {
-            content: '✨';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            opacity: 0.3;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 80px;
         }
 
         .vip-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid var(--primary-light);
-            transition: var(--transition);
+            transition: var(--transition-fast);
         }
 
         .vip-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--primary-color);
+            box-shadow: var(--shadow-hover);
         }
     </style>
 </head>
 
 <body>
 
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <header class="main-header"></header>
 
     <div class="container" style="margin-top: 120px;">
-        <h2 class="section-title" data-lang="vip_title">Clube Secreto da Kinny</h2>
-        <p class="section-subtitle">Um cantinho especial com rascunhos, processos e artes que você só vê aqui.</p>
+        <h2 class="section-title fade-in" data-lang="vip_title">Clube Secreto da Kinny</h2>
+        <p class="section-subtitle fade-in">Um cantinho especial com rascunhos, processos e artes que você só vê aqui.</p>
 
-        <!-- VIP Locked Gate -->
-        <div class="vip-banner" id="vip-gate">
-            <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🔒</span>
+        <div class="vip-banner fade-in" id="vip-gate">
+            <span style="font-size: 3rem; margin-bottom: 20px; display: block;">&#x1F512;</span>
             <h3 style="margin-bottom: 15px;">Acesso Restrito aos Seguidores</h3>
-            <p>Este conteúdo é um presente especial para quem me acompanha no TikTok! 💕</p>
-            <p style="margin-bottom: 25px; opacity: 0.8;">Siga **@guaxinim_kinny_ofc** para liberar
-                instantaneamente.</p>
-            <button id="unlock-btn" class="btn btn-primary">🎵 Seguir & Desbloquear</button>
+            <p>Este conteúdo é um presente especial para quem me acompanha no TikTok!</p>
+            <p style="margin-bottom: 25px; opacity: 0.8;">Siga <strong>@guaxinim_kinny_ofc</strong> para liberar instantaneamente.</p>
+            <button id="unlock-btn" class="btn btn-primary">&#x1F3B5; Seguir & Desbloquear</button>
         </div>
 
-        <!-- VIP Content (Visible after unlock) -->
         <div id="vip-content" style="display: none; opacity: 0; transition: var(--transition-slow);">
             <div class="vip-banner"
-                style="background: var(--bg-soft); border: 2px solid var(--primary-light); color: var(--text-color);">
-                <h3>✨ Bem-vinda(o) ao Clube! ✨</h3>
+                style="background: var(--bg-soft); border: 1px solid var(--primary-light); color: var(--text-color);">
+                <h3>Bem-vinda(o) ao Clube!</h3>
                 <p>Obrigada por todo o carinho e por me seguir. Aproveite os conteúdos exclusivos abaixo!</p>
             </div>
 
-            <div id="vip-dynamic-gallery" class="gallery-grid">
-                <!-- Loaded by JS -->
-            </div>
+            <div id="vip-dynamic-gallery" class="gallery-grid"></div>
 
-            <!-- Pre-defined Exclusive Areas -->
             <div class="gallery-grid">
                 <div class="card vip-card" style="text-align: center; padding: 40px;">
-                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🖌️</span>
+                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">&#x1F58C;&#xFE0F;</span>
                     <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Processos & PSDs</h4>
                     <p style="color: var(--text-light); font-size: 1rem; margin-bottom: 25px;">Acompanhe o passo a passo
                         e veja as camadas dos meus desenhos favoritos.</p>
                     <span class="btn btn-outline" style="cursor: default; opacity: 0.6;">Em breve</span>
                 </div>
                 <div class="card vip-card" style="text-align: center; padding: 40px;">
-                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🎁</span>
+                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">&#x1F381;</span>
                     <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Brindes Mensais</h4>
                     <p style="color: var(--text-light); font-size: 1rem; margin-bottom: 25px;">Pincéis exclusivos,
                         wallpapers em 4K e ícones feitos com carinho para você.</p>
@@ -122,14 +103,12 @@
         </div>
     </div>
 
-    <!-- VIP Logic Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const gate = document.getElementById('vip-gate');
             const content = document.getElementById('vip-content');
             const btn = document.getElementById('unlock-btn');
 
-            // Default settings if none exist
             const defaults = {
                 vipStatus: {
                     active: true,
@@ -141,13 +120,12 @@
             const vipStatus = settings.vipStatus || (settings.vipStatus === undefined ? defaults.vipStatus : settings.vipStatus);
 
             if (!vipStatus.active) {
-                // Show unavailable message
                 gate.innerHTML = `
-                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🔒</span>
+                    <span style="font-size: 3rem; margin-bottom: 20px; display: block;">&#x1F512;</span>
                     <h3 style="margin-bottom: 15px;">Área VIP Indisponível</h3>
                     <p style="padding: 0 20px;">${vipStatus.msg}</p>
                 `;
-                return; // Stop here
+                return;
             }
 
             function unlock(animate = true) {
@@ -160,7 +138,6 @@
                 if (animate) {
                     localStorage.setItem('vipUnlocked', 'true');
                 }
-                // No need to call loadVIPContent manually, gallery.js already handles it
             }
 
             if (localStorage.getItem('vipUnlocked') === 'true') {
@@ -169,7 +146,7 @@
 
             btn.addEventListener('click', () => {
                 window.open('https://www.tiktok.com/@guaxinim_kinny_ofc', '_blank');
-                btn.innerHTML = "✨ Verificando...";
+                btn.innerHTML = "Verificando...";
                 btn.style.opacity = "0.7";
 
                 setTimeout(() => {
@@ -182,18 +159,23 @@
     <!-- Modal -->
     <div id="gallery-modal" class="modal">
         <span class="modal-close">&times;</span>
+        <button class="modal-nav modal-prev" aria-label="Anterior">&#x276E;</button>
+        <button class="modal-nav modal-next" aria-label="Próximo">&#x276F;</button>
         <div class="modal-content">
             <img id="modal-img" class="modal-img" src="" alt="" loading="lazy">
             <div id="modal-caption" class="modal-caption"></div>
         </div>
+        <div class="modal-counter"></div>
     </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">&uarr;</button>
 
     <footer></footer>
 
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/gallery-data.js"></script>
-    <script src="js/gallery.js"></script>
+    <script src="js/translations.js?v=2.0"></script>
+    <script src="js/main.js?v=2.0"></script>
+    <script src="js/gallery-data.js?v=2.0"></script>
+    <script src="js/gallery.js?v=2.0"></script>
 </body>
 
 </html>

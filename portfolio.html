@@ -23,50 +23,54 @@
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/variables.css?v=1.1">
-    <link rel="stylesheet" href="css/global.css?v=1.1">
-    <link rel="stylesheet" href="css/components.css?v=1.1">
-    <link rel="stylesheet" href="css/gallery.css?v=1.1">
-    <link rel="stylesheet" href="css/mobile.css?v=1.1">
+    <link rel="stylesheet" href="css/variables.css?v=2.0">
+    <link rel="stylesheet" href="css/global.css?v=2.0">
+    <link rel="stylesheet" href="css/components.css?v=2.0">
+    <link rel="stylesheet" href="css/gallery.css?v=2.0">
+    <link rel="stylesheet" href="css/mobile.css?v=2.0">
 
-    <!-- Header/Footer Component -->
-    <script src="js/components.js?v=1.2" defer></script>
+    <script src="js/components.js?v=2.0" defer></script>
 </head>
 
 <body>
 
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <header class="main-header"></header>
 
     <section class="container" style="margin-top: 80px;">
-        <h2 class="section-title" data-lang="section_portfolio">Meus Trabalhos</h2>
+        <h2 class="section-title fade-in" data-lang="section_portfolio">Meus Trabalhos</h2>
 
-        <div class="gallery-filters">
+        <div class="gallery-filters fade-in">
             <button class="filter-btn active" data-filter="all" data-lang="filter_all">Todos</button>
             <button class="filter-btn" data-filter="fanart" data-lang="filter_fanart">Fanart</button>
             <button class="filter-btn" data-filter="oc" data-lang="filter_oc">OCs</button>
             <button class="filter-btn" data-filter="sketch" data-lang="filter_sketch">Sketch</button>
         </div>
 
-        <div class="gallery-grid">
-            <!-- As artes aparecerão aqui assim que forem adicionadas! -->
-        </div>
+        <div class="gallery-grid"></div>
     </section>
 
     <!-- Modal -->
     <div id="gallery-modal" class="modal">
         <span class="modal-close">&times;</span>
+        <button class="modal-nav modal-prev" aria-label="Anterior">&#x276E;</button>
+        <button class="modal-nav modal-next" aria-label="Próximo">&#x276F;</button>
         <div class="modal-content">
             <img id="modal-img" class="modal-img" src="" alt="" loading="lazy">
             <div id="modal-caption" class="modal-caption"></div>
         </div>
+        <div class="modal-counter"></div>
     </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">&uarr;</button>
 
     <footer></footer>
 
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/gallery-data.js?v=1.2"></script>
-    <script src="js/gallery.js?v=1.2"></script>
+    <script src="js/translations.js?v=2.0"></script>
+    <script src="js/main.js?v=2.0"></script>
+    <script src="js/gallery-data.js?v=2.0"></script>
+    <script src="js/gallery.js?v=2.0"></script>
 </body>
 
 </html>

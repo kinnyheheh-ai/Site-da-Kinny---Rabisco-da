@@ -1,11 +1,7 @@
-/**
- * components.js - Centralized Header and Footer for Rabiscos da Kinny
- */
-
 function injectComponents() {
     const headerHTML = `
     <div class="container nav-container">
-        <a href="index.html" class="logo">✨ Rabiscos da Kinny</a>
+        <a href="index.html" class="logo">Rabiscos da Kinny</a>
         <nav>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link" data-lang="nav_home">Início</a></li>
@@ -15,23 +11,42 @@ function injectComponents() {
                 <li><a href="client.html" class="nav-link" data-lang="nav_client">Área do Cliente</a></li>
             </ul>
         </nav>
-        <div class="hamburger" aria-label="Abrir Menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+        <div class="header-actions">
+            <button id="lang-switch" class="lang-switch" aria-label="Mudar Idioma">EN</button>
+            <div class="hamburger" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-        <button id="lang-switch" class="lang-switch" aria-label="Mudar Idioma">EN</button>
     </div>`;
 
     const footerHTML = `
     <div class="container">
-        <div class="social-links">
-            <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon" title="TikTok" aria-label="TikTok">🎵<span>TikTok</span></a>
-            <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">📺<span>YouTube</span></a>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3 class="footer-logo">Rabiscos da Kinny</h3>
+                <p class="footer-desc" data-lang="footer_desc">Transformando seus sonhos em arte digital com carinho e dedicação.</p>
+            </div>
+            <div class="footer-links">
+                <h4 data-lang="footer_nav">Navegação</h4>
+                <ul>
+                    <li><a href="index.html" data-lang="nav_home">Início</a></li>
+                    <li><a href="portfolio.html" data-lang="nav_portfolio">Portfólio</a></li>
+                    <li><a href="commissions.html" data-lang="nav_commissions">Comissões</a></li>
+                    <li><a href="terms.html" data-lang="terms_title">Termos de Uso</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4 data-lang="footer_follow">Me Siga</h4>
+                <div class="social-links">
+                    <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="social-icon" title="TikTok" aria-label="TikTok">&#x1F3B5;<span>TikTok</span></a>
+                    <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">&#x1F4FA;<span>YouTube</span></a>
+                </div>
+            </div>
         </div>
-        <div class="credits">
+        <div class="footer-bottom">
             <p data-lang="footer_rights">&copy; 2024 Rabiscos da Kinny. Todos os direitos reservados.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Feito com carinho para transformar sonhos em arte ✨</p>
         </div>
     </div>`;
 
@@ -41,7 +56,6 @@ function injectComponents() {
     if (header) header.innerHTML = headerHTML;
     if (footer) footer.innerHTML = footerHTML;
 
-    // Highlight active link
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-link').forEach(link => {
         if (link.getAttribute('href') === currentPath) {
@@ -52,7 +66,6 @@ function injectComponents() {
         }
     });
 
-    // Re-initialize mobile menu events since we injected new HTML
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".nav-menu");
 
@@ -69,7 +82,6 @@ function injectComponents() {
     }
 }
 
-// Run injection
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectComponents);
 } else {

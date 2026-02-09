@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // === Hide Page Loader ===
+    const pageLoader = document.getElementById('page-loader');
+    if (pageLoader) {
+        pageLoader.classList.add('hidden');
+        setTimeout(() => pageLoader.remove(), 500);
+    }
+
     // === Language System ===
     let currentLang = localStorage.getItem('siteLang') || 'pt';
 
@@ -7,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = element.getAttribute('data-lang');
             if (translations[lang] && translations[lang][key]) {
                 const content = translations[lang][key];
-                // Only use innerHTML for specific elements that need formatting (like lists)
                 if (key.includes('_list') || key.includes('title') || content.includes('<')) {
                     element.innerHTML = content;
                 } else {
@@ -16,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update all lang-switch buttons (including centralized one)
         document.querySelectorAll('.lang-switch').forEach(btn => {
             btn.textContent = lang === 'pt' ? 'EN' : 'PT';
         });
@@ -24,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('siteLang', lang);
     }
 
-    // Use event delegation for lang-switch since it might be dynamically injected
     document.addEventListener('click', (e) => {
         if (e.target.id === 'lang-switch' || e.target.classList.contains('lang-switch')) {
             currentLang = currentLang === 'pt' ? 'en' : 'pt';
@@ -32,59 +36,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize Language
     updateLanguage(currentLang);
-
-    // Dynamic Contact Info and Other Logic...
 
     // === Dynamic Contact Info ===
     function updateContactInfo() {
         const settings = JSON.parse(localStorage.getItem('siteSettings'));
-        if (!settings || !settings.contact) return; // Use defaults if nothing saved
+        if (!settings || !settings.contact) return;
 
         const { tiktok, youtube } = settings.contact;
 
-        // Update TikTok Links (Footer & Commissions Page)
         document.querySelectorAll('a[title="TikTok"], a[href*="tiktok.com"]').forEach(link => {
             if (tiktok) {
                 link.href = tiktok;
-                // Update text if it contains the handle
                 if (link.textContent.includes('@')) {
                     const handle = tiktok.split('/').pop();
-                    link.textContent = `🎵 TikTok: ${handle}`;
+                    link.textContent = `TikTok: ${handle}`;
                 }
             }
         });
 
-        // Update YouTube Links
         document.querySelectorAll('a[title="YouTube"], a[href*="youtube.com"]').forEach(link => {
-            if (youtube) {
-                link.href = youtube;
-            }
+            if (youtube) link.href = youtube;
         });
 
-        // Apply Visuals
         if (settings.visual) {
-            // Theme Color
             if (settings.visual.color) {
                 const color = settings.visual.color;
                 document.documentElement.style.setProperty('--primary-color', color);
 
-                // Calculate Variations
                 const r = parseInt(color.slice(1, 3), 16);
                 const g = parseInt(color.slice(3, 5), 16);
                 const b = parseInt(color.slice(5, 7), 16);
 
-                // Dark Variation
                 const dark = `rgb(${Math.floor(r * 0.8)}, ${Math.floor(g * 0.8)}, ${Math.floor(b * 0.8)})`;
                 document.documentElement.style.setProperty('--primary-dark', dark);
 
-                // Light Variation (Translucent)
                 const light = `rgba(${r}, ${g}, ${b}, 0.15)`;
                 document.documentElement.style.setProperty('--primary-light', light);
             }
 
-            // Avatar (Home Page)
             const avatarContainer = document.querySelector('.avatar-container');
             if (avatarContainer && settings.visual.avatar) {
                 avatarContainer.innerHTML = `<img src="${settings.visual.avatar}" style="width:100%; height:100%; object-fit:cover;" alt="Avatar">`;
@@ -94,10 +84,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateContactInfo();
 
-    // Listen for storage changes to update immediately if admin changes it in another tab
     window.addEventListener('storage', (e) => {
-        if (e.key === 'siteSettings') {
-            updateContactInfo();
-        }
+        if (e.key === 'siteSettings') updateContactInfo();
     });
+
+    // === Scroll Animations (Intersection Observer) ===
+    const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in, .fade-up, .scale-up');
+
+    if (animatedElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+    }
+
+    // === Header Scroll Effect ===
+    const header = document.querySelector('.main-header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (header) {
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        lastScroll = currentScroll;
+    }, { passive: true });
+
+    // === Scroll Progress Bar ===
+    const progressBar = document.getElementById('scroll-progress');
+
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+    }
+
+    // === Back to Top Button ===
+    const backToTop = document.getElementById('back-to-top');
+
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });

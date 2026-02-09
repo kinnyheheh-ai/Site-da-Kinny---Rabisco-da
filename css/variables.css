@@ -1,35 +1,55 @@
-/* Variáveis CSS - Rabiscos da Kinny */
 :root {
-    /* Paleta de Cores - Minimalist Artistic */
-    --primary-color: #ffb7c5;
-    /* Pink Sakura */
-    --primary-light: #ffe4e9;
-    --primary-dark: #e88d9f;
-    --secondary-color: #d4daff;
-    /* Soft Periwrinkle */
-    --accent-color: #fff0d4;
-    /* Cream */
+    --primary: #f472b6;
+    --primary-light: #fce7f3;
+    --primary-dark: #db2777;
+    --primary-glow: rgba(244, 114, 182, 0.3);
 
-    --text-color: #3d3d3d;
-    --text-light: #6b6b6b;
-    --bg-color: #ffffff;
-    --bg-soft: #fffbfc;
+    --secondary: #a78bfa;
+    --secondary-light: #ede9fe;
+    --secondary-dark: #7c3aed;
 
-    /* UI Tokens */
-    --border-radius-sm: 8px;
-    --border-radius: 20px;
-    --border-radius-lg: 32px;
+    --accent: #fbbf24;
+    --accent-light: #fef3c7;
 
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow: 0 10px 30px rgba(255, 183, 197, 0.15);
-    --shadow-hover: 0 20px 40px rgba(255, 183, 197, 0.25);
+    --text: #1e1b4b;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
 
-    /* Tipografia */
-    --font-main: 'Quicksand', sans-serif;
+    --bg: #fefefe;
+    --bg-soft: #fdf2f8;
+    --bg-card: #ffffff;
+    --bg-dark: #1e1b4b;
+
+    --border: rgba(244, 114, 182, 0.15);
+    --border-strong: rgba(244, 114, 182, 0.3);
+
+    --radius-sm: 12px;
+    --radius: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 40px;
+    --radius-full: 9999px;
+
+    --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow: 0 8px 30px rgba(244, 114, 182, 0.12);
+    --shadow-lg: 0 20px 50px rgba(244, 114, 182, 0.2);
+    --shadow-xl: 0 25px 60px rgba(244, 114, 182, 0.3);
+    --shadow-glow: 0 0 40px rgba(244, 114, 182, 0.15);
+
+    --font-main: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading: 'Comfortaa', cursive;
 
-    /* Transições */
-    --transition: cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: 0.2s var(--transition);
-    --transition-slow: 0.5s var(--transition);
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --speed-fast: 0.2s;
+    --speed: 0.35s;
+    --speed-slow: 0.6s;
+
+    --gradient-primary: linear-gradient(135deg, #f472b6 0%, #a78bfa 50%, #60a5fa 100%);
+    --gradient-hero: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 25%, #ede9fe 50%, #e0f2fe 75%, #fdf2f8 100%);
+    --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(253,242,248,0.5) 100%);
+    --gradient-cta: linear-gradient(135deg, #f472b6 0%, #a78bfa 40%, #60a5fa 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+    --gradient-border: linear-gradient(135deg, #f472b6, #a78bfa, #60a5fa);
 }

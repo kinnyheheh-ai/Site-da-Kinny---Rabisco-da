@@ -23,31 +23,32 @@
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/variables.css?v=1.1">
-    <link rel="stylesheet" href="css/global.css?v=1.1">
-    <link rel="stylesheet" href="css/components.css?v=1.1">
-    <link rel="stylesheet" href="css/commissions.css?v=1.1">
-    <link rel="stylesheet" href="css/mobile.css?v=1.1">
+    <link rel="stylesheet" href="css/variables.css?v=2.0">
+    <link rel="stylesheet" href="css/global.css?v=2.0">
+    <link rel="stylesheet" href="css/components.css?v=2.0">
+    <link rel="stylesheet" href="css/commissions.css?v=2.0">
+    <link rel="stylesheet" href="css/mobile.css?v=2.0">
 
-    <!-- Header/Footer Component -->
-    <script src="js/components.js" defer></script>
+    <script src="js/components.js?v=2.0" defer></script>
 </head>
 
 <body>
 
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <header class="main-header"></header>
 
     <div class="container" style="margin-top: 100px;">
-        <h2 class="section-title" data-lang="commissions_title">Tabela de Comissões</h2>
+        <h2 class="section-title fade-in" data-lang="commissions_title">Tabela de Comissões</h2>
 
-        <div id="commissions-status" class="status-banner">
-            <span id="status-text" data-lang="commissions_open">Comissões Abertas! ✨</span>
+        <div id="commissions-status" class="status-banner fade-in">
+            <span id="status-text" data-lang="commissions_open">Comissões Abertas!</span>
         </div>
 
         <!-- Rules & FAQ -->
-        <div class="rules-container">
+        <div class="rules-container fade-in">
             <div class="rules-box">
-                <h3 data-lang="rules_do_title">✅ Eu faço:</h3>
+                <h3 data-lang="rules_do_title">Eu faço:</h3>
                 <ul data-lang="rules_do_list">
                     <li>Fanarts (Jogos, Animes, Mangás)</li>
                     <li>Personagens Originais (OCs)</li>
@@ -57,7 +58,7 @@
                 </ul>
             </div>
             <div class="rules-box">
-                <h3 data-lang="rules_dont_title">❌ Eu NÃO faço:</h3>
+                <h3 data-lang="rules_dont_title">Eu NÃO faço:</h3>
                 <ul data-lang="rules_dont_list">
                     <li>NSFW / Conteúdo adulto</li>
                     <li>Gore / Violência extrema</li>
@@ -68,40 +69,40 @@
             </div>
         </div>
 
-        <div class="pricing-grid">
+        <div class="pricing-grid stagger-children">
             <!-- Process Step-by-Step -->
-            <div class="commissions-process">
+            <div class="commissions-process fade-in">
                 <h3 class="section-title" style="font-size: 1.8rem;">Como funciona</h3>
                 <div class="process-grid">
                     <div class="process-step">
-                        <div class="step-icon">💌</div>
+                        <div class="step-icon">&#x1F48C;</div>
                         <h4>1. Contato</h4>
                         <p>Me mande uma DM no TikTok ou Discord com sua ideia inicial.</p>
                     </div>
                     <div class="process-step">
-                        <div class="step-icon">🖼️</div>
+                        <div class="step-icon">&#x1F5BC;&#xFE0F;</div>
                         <h4>2. Referências</h4>
                         <p>Envie imagens, poses e cores para eu entender seu sonho.</p>
                     </div>
                     <div class="process-step">
-                        <div class="step-icon">💳</div>
+                        <div class="step-icon">&#x1F4B3;</div>
                         <h4>3. Aprovação</h4>
                         <p>Após o esboço e pagamento parcial/total, começo a arte final.</p>
                     </div>
                     <div class="process-step">
-                        <div class="step-icon">🎁</div>
+                        <div class="step-icon">&#x1F381;</div>
                         <h4>4. Entrega</h4>
                         <p>Receba sua arte em alta qualidade pronta para brilhar!</p>
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 30px;">
-                    <a href="#contact" class="btn btn-primary">Quero uma comissão</a>
+                    <a href="#commission-form" class="btn btn-primary">Quero uma comissão</a>
                 </div>
             </div>
 
             <!-- Icon -->
-            <div class="price-card">
-                <span class="icon">👤</span>
+            <div class="price-card fade-in">
+                <span class="icon">&#x1F464;</span>
                 <h3 class="price-title">Icon / Headshot</h3>
                 <div id="price-display-icon" class="price-amount">R$ 50</div>
                 <ul class="price-features">
@@ -111,12 +112,13 @@
                     <li>Perfeito para redes sociais</li>
                     <li>+ Personagem: <span class="addon-char-price">+R$ 1,00</span></li>
                 </ul>
-                <a href="#contact" class="btn btn-outline">Encomendar</a>
+                <a href="#commission-form" class="btn btn-outline">Encomendar</a>
             </div>
 
-            <!-- Bust -->
-            <div class="price-card">
-                <span class="icon">🎎</span>
+            <!-- Bust - POPULAR -->
+            <div class="price-card popular fade-in">
+                <div class="popular-badge" data-lang="badge_popular">Mais Pedido</div>
+                <span class="icon">&#x1F38E;</span>
                 <h3 class="price-title">Busto / Halfbody</h3>
                 <div id="price-display-bust" class="price-amount">R$ 80</div>
                 <ul class="price-features">
@@ -125,12 +127,12 @@
                     <li>Uso pessoal</li>
                     <li>+ Personagem: <span class="addon-char-price">+R$ 1,00</span></li>
                 </ul>
-                <a href="#contact" class="btn btn-primary">Encomendar</a>
+                <a href="#commission-form" class="btn btn-primary">Encomendar</a>
             </div>
 
             <!-- Fullbody -->
-            <div class="price-card">
-                <span class="icon">🧍‍♀️</span>
+            <div class="price-card fade-in">
+                <span class="icon">&#x1F9CD;&#x200D;&#x2640;&#xFE0F;</span>
                 <h3 class="price-title">Fullbody</h3>
                 <div id="price-display-fullbody" class="price-amount">R$ 120</div>
                 <ul class="price-features">
@@ -140,134 +142,128 @@
                     <li>Design de personagem completo</li>
                     <li>+ Personagem: <span class="addon-char-price">+R$ 1,00</span></li>
                 </ul>
-                <a href="#contact" class="btn btn-outline">Encomendar</a>
+                <a href="#commission-form" class="btn btn-outline">Encomendar</a>
             </div>
         </div>
 
-        <!-- Add-ons Section (New) -->
-        <h3 class="section-title" style="font-size: 2rem; margin-top: 60px;">Acabamentos & Extras</h3>
-        <div class="pricing-grid">
-            <div class="price-card" style="border-top-color: var(--secondary-color);">
-                <span class="icon">✒️</span>
+        <!-- Add-ons Section -->
+        <h3 class="section-title fade-in" style="font-size: 2rem; margin-top: 60px;">Acabamentos & Extras</h3>
+        <div class="pricing-grid stagger-children">
+            <div class="price-card fade-in" style="border-top-color: var(--secondary-color);">
+                <span class="icon">&#x2712;&#xFE0F;</span>
                 <h3 class="price-title">Lineart</h3>
                 <div id="price-display-lineart" class="price-amount">R$ 2,00</div>
                 <p>Traço limpo, sem cores.</p>
             </div>
 
-            <div class="price-card" style="border-top-color: var(--secondary-color);">
-                <span class="icon">🎨</span>
+            <div class="price-card fade-in" style="border-top-color: var(--secondary-color);">
+                <span class="icon">&#x1F3A8;</span>
                 <h3 class="price-title">Cores Simples</h3>
                 <div id="price-display-flat" class="price-amount">R$ 3,00</div>
                 <p>Cores base, sem sombra.</p>
             </div>
 
-            <div class="price-card" style="border-top-color: var(--secondary-color);">
-                <span class="icon">✨</span>
+            <div class="price-card fade-in" style="border-top-color: var(--secondary-color);">
+                <span class="icon">&#x2728;</span>
                 <h3 class="price-title">Cores Completas</h3>
                 <div id="price-display-full" class="price-amount">R$ 4,00</div>
                 <p>Luz, sombra e detalhes.</p>
             </div>
         </div>
 
-        <section class="container" style="margin-top: 60px;">
-            <h2 class="section-title">Fazer Pedido</h2>
-            <div class="card" style="max-width: 600px; margin: 0 auto;">
-                <form id="commission-form">
+        <section class="container" id="commission-form" style="margin-top: 60px;">
+            <h2 class="section-title fade-in">Fazer Pedido</h2>
+            <div class="card fade-in" style="max-width: 600px; margin: 0 auto; padding: 40px; background: white; border-radius: var(--border-radius); box-shadow: var(--shadow-sm);">
+                <form id="commission-form-el">
                     <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="order-nick" style="display:block; margin-bottom:5px; font-weight:600;">Seu Nome /
-                            Nickname</label>
-                        <input type="text" id="order-nick" class="admin-input" style="width: 100%; padding: 10px;"
+                        <label for="order-nick" style="display:block; margin-bottom:5px; font-weight:600;">Seu Nome / Nickname</label>
+                        <input type="text" id="order-nick" class="admin-input" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--primary-light); font-family: var(--font-main); outline: none; transition: var(--transition-fast);"
                             required aria-label="Nickname">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="order-contact" style="display:block; margin-bottom:5px; font-weight:600;">Contato
-                            (Email/Twitter/Discord)</label>
-                        <input type="text" id="order-contact" class="admin-input" style="width: 100%; padding: 10px;"
+                        <label for="order-contact" style="display:block; margin-bottom:5px; font-weight:600;">Contato (Email/Twitter/Discord)</label>
+                        <input type="text" id="order-contact" class="admin-input" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--primary-light); font-family: var(--font-main); outline: none;"
                             required aria-label="Informação de Contato">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="order-type" style="display:block; margin-bottom:5px; font-weight:600;">Tipo de
-                            Comissão</label>
-                        <select id="order-type" class="admin-input" style="width: 100%; padding: 10px;"
+                        <label for="order-type" style="display:block; margin-bottom:5px; font-weight:600;">Tipo de Comissão</label>
+                        <select id="order-type" class="admin-input" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--primary-light); font-family: var(--font-main); outline: none; background: white;"
                             aria-label="Tipo de Arte">
                             <option value="Icon">Icon / Headshot</option>
-                            <option value="Bust">Busto / Halfbody</option>
+                            <option value="Bust" selected>Busto / Halfbody</option>
                             <option value="Fullbody">Corpo Inteiro</option>
                         </select>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="order-desc" style="display:block; margin-bottom:5px; font-weight:600;">Descrição do
-                            Pedido</label>
-                        <textarea id="order-desc" class="admin-input" style="width: 100%; padding: 10px; height: 100px;"
+                        <label for="order-desc" style="display:block; margin-bottom:5px; font-weight:600;">Descrição do Pedido</label>
+                        <textarea id="order-desc" class="admin-input" style="width: 100%; padding: 12px; height: 110px; border-radius: 12px; border: 2px solid var(--primary-light); font-family: var(--font-main); outline: none; resize: vertical;"
                             required placeholder="Descreva pose, expressão, detalhes..."
                             aria-label="Descrição do Desenho"></textarea>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label for="order-ref" style="display:block; margin-bottom:5px; font-weight:600;">Link da
-                            Referência
-                            (Opcional)</label>
-                        <input type="url" id="order-ref" class="admin-input" style="width: 100%; padding: 10px;"
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label for="order-ref" style="display:block; margin-bottom:5px; font-weight:600;">Link da Referência (Opcional)</label>
+                        <input type="url" id="order-ref" class="admin-input" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--primary-light); font-family: var(--font-main); outline: none;"
                             placeholder="https://..." aria-label="URL de Referência">
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Pedido ✨</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.05rem;">Enviar Pedido</button>
                 </form>
                 <div id="order-success" style="display:none; text-align:center; margin-top:20px;">
-                    <h3 style="color: var(--primary-color);">Pedido Enviado! 🎉</h3>
+                    <h3 style="color: var(--primary-color);">Pedido Enviado!</h3>
                     <p>Seu código de rastreio é:</p>
-                    <div style="background:#eee; padding:10px; font-size:1.2rem; font-weight:bold; margin:10px 0; border-radius:5px;"
+                    <div style="background: var(--primary-light); padding:12px; font-size:1.2rem; font-weight:bold; margin:10px 0; border-radius:12px; color: var(--primary-dark);"
                         id="new-order-id">#123456</div>
-                    <p>Guarde este código para acompanhar na Área do Cliente!</p>
+                    <p>Guarde este código para acompanhar na <a href="client.html" style="color: var(--primary-dark); font-weight: 700; text-decoration: underline;">Área do Cliente</a>!</p>
                 </div>
             </div>
         </section>
 
-        <div id="contact" class="contact-cta">
+        <div id="contact" class="contact-cta fade-in">
             <h3>Pronto para pedir?</h3>
-            <p style="margin-bottom: 20px;">Entre em contato via TikTok para iniciar seu pedido.</p>
+            <p style="margin-bottom: 20px; color: var(--text-light);">Entre em contato via TikTok para iniciar seu pedido.</p>
             <a href="https://www.tiktok.com/@guaxinim_kinny_ofc" target="_blank" class="btn btn-outline"
-                style="border-color: #000; color: #000;" aria-label="Abrir TikTok da Kinny">🎵 TikTok:
-                @guaxinim_kinny_ofc</a>
+                aria-label="Abrir TikTok da Kinny">&#x1F3B5; TikTok: @guaxinim_kinny_ofc</a>
         </div>
     </div>
 
-    <!-- Testimonials / Social Proof (Replicated from index) -->
+    <!-- Testimonials / Social Proof -->
     <section class="testimonials" style="background: var(--bg-soft); padding: 80px 0;">
         <div class="container">
-            <h2 class="section-title" data-lang="section_testimonials">O que dizem os clientes</h2>
-            <div class="testimonials-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">🌸</div>
+            <h2 class="section-title fade-in" data-lang="section_testimonials">O que dizem os clientes</h2>
+            <div class="testimonials-grid stagger-children" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-avatar">&#x1F338;</div>
                     <p class="testimonial-text" data-lang="test_1_text">A Kinny transformou minha OC em algo mágico! O
-                        processo foi super atencioso e o resultado ficou fofíssimo. ✨</p>
+                        processo foi super atencioso e o resultado ficou fofíssimo.</p>
                     <span class="testimonial-author" data-lang="test_1_author">- Julia M.</span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">✨</div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-avatar">&#x2728;</div>
                     <p class="testimonial-text" data-lang="test_2_text">Melhor experiência de comissão que já tive.
-                        Super profissional e os detalhes da arte são surreais! 💖</p>
+                        Super profissional e os detalhes da arte são surreais!</p>
                     <span class="testimonial-author" data-lang="test_2_author">- Carlos H.</span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">🌸</div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-avatar">&#x1F338;</div>
                     <p class="testimonial-text" data-lang="test_3_text">A entrega foi rápida e a arte ficou perfeita
-                        para o meu canal. Recomendo muito! 🌸</p>
+                        para o meu canal. Recomendo muito!</p>
                     <span class="testimonial-author" data-lang="test_3_author">- Luna_Chan</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">&uarr;</button>
+
     <footer></footer>
 
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/commissions.js"></script>
+    <script src="js/translations.js?v=2.0"></script>
+    <script src="js/main.js?v=2.0"></script>
+    <script src="js/commissions.js?v=2.0"></script>
 </body>
 
 </html>

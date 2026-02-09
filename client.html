@@ -13,12 +13,73 @@
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/variables.css?v=1.1">
-    <link rel="stylesheet" href="css/global.css?v=1.1">
-    <link rel="stylesheet" href="css/components.css?v=1.1">
-    <link rel="stylesheet" href="css/commissions.css?v=1.1">
-    <link rel="stylesheet" href="css/mobile.css?v=1.1">
+    <link rel="stylesheet" href="css/variables.css?v=2.0">
+    <link rel="stylesheet" href="css/global.css?v=2.0">
+    <link rel="stylesheet" href="css/components.css?v=2.0">
+    <link rel="stylesheet" href="css/commissions.css?v=2.0">
+    <link rel="stylesheet" href="css/mobile.css?v=2.0">
+    <script src="js/components.js?v=2.0" defer></script>
     <style>
+        .tracking-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tracking-search {
+            display: flex;
+            gap: 10px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .tracking-search input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .tracking-search input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(255, 183, 197, 0.15);
+        }
+
+        .order-result {
+            margin-top: 30px;
+            text-align: left;
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--primary-light);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .order-header h4 {
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        .order-status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: white;
+        }
+
         .queue-list {
             max-width: 800px;
             margin: 0 auto;
@@ -28,7 +89,7 @@
             background: white;
             padding: 20px;
             border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow-sm);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -36,17 +97,9 @@
             border-left: 5px solid #eee;
         }
 
-        .queue-item.done {
-            border-left-color: #66bb6a;
-        }
-
-        .queue-item.wip {
-            border-left-color: #ffca28;
-        }
-
-        .queue-item.waiting {
-            border-left-color: #bdbdbd;
-        }
+        .queue-item.done { border-left-color: #66bb6a; }
+        .queue-item.wip { border-left-color: #ffca28; }
+        .queue-item.waiting { border-left-color: #bdbdbd; }
 
         .client-info {
             display: flex;
@@ -57,7 +110,7 @@
         .client-avatar {
             width: 50px;
             height: 50px;
-            background: #eee;
+            background: var(--primary-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -72,107 +125,61 @@
             font-weight: bold;
         }
 
-        .status-badge.done {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status-badge.wip {
-            background-color: #fff8e1;
-            color: #f57f17;
-        }
-
-        .status-badge.waiting {
-            background-color: #f5f5f5;
-            color: #616161;
-        }
-
-        @media(max-width: 600px) {
-            .queue-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
+        .status-badge.done { background-color: #e8f5e9; color: #2e7d32; }
+        .status-badge.wip { background-color: #fff8e1; color: #f57f17; }
+        .status-badge.waiting { background-color: #f5f5f5; color: #616161; }
     </style>
 </head>
 
 <body>
 
-    <header class="main-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">✨ Rabiscos da Kinny</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link" data-lang="nav_home">Início</a></li>
-                    <li><a href="portfolio.html" class="nav-link" data-lang="nav_portfolio">Portfólio</a></li>
-                    <li><a href="commissions.html" class="nav-link" data-lang="nav_commissions">Comissões</a></li>
-                    <li><a href="vip.html" class="nav-link" data-lang="nav_vip">Área VIP</a></li>
-                    <li><a href="client.html" class="nav-link active" data-lang="nav_client">Área do Cliente</a></li>
-                </ul>
-            </nav>
+    <div class="scroll-progress" id="scroll-progress"></div>
 
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-
-            <button id="lang-switch" class="lang-switch">EN</button>
-        </div>
-    </header>
+    <header class="main-header"></header>
 
     <div class="container" style="margin-top: 100px;">
-        <h2 class="section-title" data-lang="client_title">Acompanhar Pedido</h2>
+        <h2 class="section-title fade-in" data-lang="client_title">Acompanhar Pedido</h2>
 
-        <div class="tracking-box" style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <p style="margin-bottom: 20px;">Digite o código do seu pedido (ex: #KD5920)</p>
+        <div class="tracking-box fade-in" style="text-align: center;">
+            <p style="margin-bottom: 20px; color: var(--text-light);">Digite o código do seu pedido (ex: #KD5920)</p>
 
-            <div style="display: flex; gap: 10px; max-width: 400px; margin: 0 auto;">
-                <input type="text" id="order-lookup-input" class="admin-input" placeholder="#Código"
-                    style="width: 100%;">
+            <div class="tracking-search">
+                <input type="text" id="order-lookup-input" placeholder="#Código">
                 <button id="lookup-btn" class="btn btn-primary">Buscar</button>
             </div>
 
-            <div id="order-result"
-                style="margin-top: 30px; display: none; text-align: left; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
-                    <h4 id="result-id" style="color: var(--primary-dark); margin:0;">#KDXXXX</h4>
-                    <span id="result-status"
-                        style="background: #eee; padding: 5px 10px; border-radius: 10px; font-weight: bold; font-size: 0.8rem;">PENDENTE</span>
+            <div id="order-result" class="order-result" style="display: none;">
+                <div class="order-header">
+                    <h4 id="result-id">#KDXXXX</h4>
+                    <span id="result-status" class="order-status">PENDENTE</span>
                 </div>
                 <p><strong>Tipo:</strong> <span id="result-type">Icon</span></p>
                 <p><strong>Data:</strong> <span id="result-date">01/01/2024</span></p>
 
                 <div id="download-area" style="margin-top: 20px; text-align: center; display: none;">
-                    <p style="margin-bottom: 10px;">✨ Seu pedido está pronto!</p>
+                    <p style="margin-bottom: 10px;">Seu pedido está pronto!</p>
                     <a id="download-btn" href="#" target="_blank" class="btn btn-primary"
-                        style="width: 100%; margin-bottom: 15px;">📥 Baixar Arte</a>
+                        style="width: 100%; margin-bottom: 15px;">Baixar Arte</a>
 
-                    <!-- Feedback Section -->
                     <div id="feedback-area"
                         style="border-top: 1px dashed var(--primary-light); padding-top: 15px; margin-top: 15px;">
-                        <h4 data-lang="feedback_title">Deixe seu Feedback ✨</h4>
-                        <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px;" data-lang="feedback_desc">O que
-                            achou da sua arte? Sua opinião me ajuda a crescer!</p>
-                        <textarea id="feedback-text" class="admin-input"
-                            style="width: 100%; padding: 10px; height: 80px; margin-bottom: 10px;"
+                        <h4 data-lang="feedback_title">Deixe seu Feedback</h4>
+                        <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px;" data-lang="feedback_desc">O que achou da sua arte? Sua opinião me ajuda a crescer!</p>
+                        <textarea id="feedback-text" style="width: 100%; padding: 12px; height: 80px; margin-bottom: 10px; border: 2px solid var(--primary-light); border-radius: 12px; font-family: var(--font-main); outline: none; resize: vertical;"
                             data-lang-placeholder="feedback_placeholder"
                             placeholder="Escreva sua mensagem aqui..."></textarea>
                         <button id="submit-feedback-btn" class="btn btn-outline" style="width: 100%;"
                             data-lang="feedback_submit">Enviar Feedback</button>
                         <p id="feedback-success-msg"
-                            style="display: none; color: var(--primary-color); font-weight: bold; margin-top: 10px;"
-                            data-lang="feedback_success">Obrigada pelo carinho! 😍</p>
+                            style="display: none; color: var(--primary-dark); font-weight: bold; margin-top: 10px;"
+                            data-lang="feedback_success">Obrigada pelo carinho!</p>
                     </div>
                 </div>
             </div>
-            <p id="lookup-error" style="color: red; margin-top: 20px; display: none;">Pedido não encontrado!</p>
+            <p id="lookup-error" style="color: #e53935; margin-top: 20px; display: none; font-weight: 600;">Pedido não encontrado!</p>
         </div>
     </div>
 
-    <!-- Script moved inside body for simplicity or could be external -->
     <script>
         document.getElementById('lookup-btn').addEventListener('click', () => {
             const code = document.getElementById('order-lookup-input').value.trim();
@@ -197,12 +204,12 @@
                 let statusText = 'Aguardando';
                 let statusColor = '#999';
 
-                if (order.status === 'pending') { statusText = 'PENDENTE'; statusColor = 'orange'; dlArea.style.display = 'none'; }
-                if (order.status === 'approved') { statusText = 'APROVADO'; statusColor = 'blue'; dlArea.style.display = 'none'; }
-                if (order.status === 'wip') { statusText = 'EM ANDAMENTO'; statusColor = 'purple'; dlArea.style.display = 'none'; }
+                if (order.status === 'pending') { statusText = 'PENDENTE'; statusColor = '#ff9800'; dlArea.style.display = 'none'; }
+                if (order.status === 'approved') { statusText = 'APROVADO'; statusColor = '#2196f3'; dlArea.style.display = 'none'; }
+                if (order.status === 'wip') { statusText = 'EM ANDAMENTO'; statusColor = '#9c27b0'; dlArea.style.display = 'none'; }
                 if (order.status === 'done') {
                     statusText = 'CONCLUÍDO';
-                    statusColor = 'green';
+                    statusColor = '#4caf50';
                     if (order.deliveryLink) {
                         dlArea.style.display = 'block';
                         dlBtn.href = order.deliveryLink;
@@ -213,21 +220,16 @@
 
                 statusEl.innerText = statusText;
                 statusEl.style.backgroundColor = statusColor;
-                statusEl.style.color = 'white';
 
-                // Handle Feedback Submission
                 const feedbackBtn = document.getElementById('submit-feedback-btn');
                 const feedbackText = document.getElementById('feedback-text');
                 const feedbackMsg = document.getElementById('feedback-success-msg');
 
                 feedbackBtn.onclick = () => {
                     if (feedbackText.value.trim().length < 3) return;
-
                     feedbackBtn.style.display = 'none';
                     feedbackText.style.display = 'none';
                     feedbackMsg.style.display = 'block';
-
-                    // In a real app, we would send this to a server
                     console.log(`Feedback for order ${order.id}: ${feedbackText.value}`);
                 };
 
@@ -236,13 +238,18 @@
                 error.style.display = 'block';
             }
         });
+
+        document.getElementById('order-lookup-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('lookup-btn').click();
+        });
     </script>
 
-    <!-- Footer (Injected automatically) -->
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">&uarr;</button>
+
     <footer></footer>
 
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/translations.js?v=2.0"></script>
+    <script src="js/main.js?v=2.0"></script>
 </body>
 
 </html>

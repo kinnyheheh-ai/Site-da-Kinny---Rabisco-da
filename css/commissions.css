@@ -10,6 +10,23 @@
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--primary-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.status-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 183, 197, 0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    to { left: 100%; }
 }
 
 /* Commissions Process */
@@ -31,15 +48,17 @@
 
 .process-step {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     transition: var(--transition-fast);
+    position: relative;
 }
 
 .process-step:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow);
 }
 
 .step-icon {
@@ -82,6 +101,11 @@
     padding: 30px;
     border-radius: var(--border-radius);
     border: 1px solid var(--primary-light);
+    transition: var(--transition-fast);
+}
+
+.rules-box:hover {
+    box-shadow: var(--shadow);
 }
 
 .rules-box h3 {
@@ -102,7 +126,7 @@
 }
 
 .rules-box li::before {
-    content: '•';
+    content: '\2022';
     position: absolute;
     left: 0;
     color: var(--primary-color);
@@ -115,26 +139,55 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     justify-content: center;
     gap: 30px;
+    align-items: stretch;
 }
 
 .price-card {
     background: white;
     border-radius: var(--border-radius);
-    padding: 30px;
-    padding: 30px;
+    padding: 35px;
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
     text-align: center;
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--shadow-sm);
     transition: var(--transition-fast);
     border-top: 5px solid var(--primary-color);
     display: flex;
     flex-direction: column;
+    position: relative;
+    margin: 0 auto;
 }
 
 .price-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--hover-shadow);
+    box-shadow: var(--shadow-hover);
+}
+
+.price-card.popular {
+    border-top-color: var(--primary-dark);
+    box-shadow: 0 10px 40px rgba(255, 183, 197, 0.3);
+    transform: scale(1.03);
+    z-index: 1;
+}
+
+.price-card.popular:hover {
+    transform: scale(1.03) translateY(-10px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .price-card .icon {
@@ -143,13 +196,13 @@
 }
 
 .price-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 10px;
     color: var(--text-color);
 }
 
 .price-amount {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--primary-dark);
     font-weight: 700;
     margin-bottom: 20px;
@@ -169,7 +222,7 @@
 }
 
 .price-features li::before {
-    content: '🌸';
+    content: '\1F338';
     position: absolute;
     left: 0;
     top: 2px;
@@ -214,10 +267,16 @@
 .contact-cta {
     text-align: center;
     margin-top: 60px;
-    padding: 40px;
-    background: white;
+    padding: 50px;
+    background: linear-gradient(135deg, var(--bg-soft), var(--primary-light));
     border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--primary-light);
+}
+
+.contact-cta h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
 }
 
 /* Terms Page Specifics */
@@ -256,9 +315,60 @@
     border-radius: 4px;
 }
 
+/* Testimonial Card on Commissions */
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 3.5rem;
+    color: var(--primary-light);
+    font-family: serif;
+    line-height: 1;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.testimonial-avatar {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author {
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .terms-content {
         padding: 30px;
+    }
+
+    .rules-container {
+        grid-template-columns: 1fr;
     }
 }

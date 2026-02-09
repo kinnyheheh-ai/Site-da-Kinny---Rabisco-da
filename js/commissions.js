@@ -50,9 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateItemAvailability('price-display-fullbody', 'fullbody', settings);
 
         // Update Addon Prices (Cards)
-        updatePrice('price-display-lineart', settings.addons.lineart);
-        updatePrice('price-display-flat', settings.addons.flat);
-        updatePrice('price-display-full', settings.addons.full);
+        if (settings.addons) {
+            updatePrice('price-display-lineart', settings.addons.lineart);
+            updatePrice('price-display-flat', settings.addons.flat);
+            updatePrice('price-display-full', settings.addons.full);
+        }
 
         // Update Addon Prices (Global)
         const charPrice = settings.addons && settings.addons.char !== undefined ? settings.addons.char : 1.00;
@@ -128,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === Order Form Logic ===
-    const orderForm = document.getElementById('commission-form');
+    const orderForm = document.getElementById('commission-form-el');
     if (orderForm) {
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('siteOrders', JSON.stringify(orders));
 
             // Show Success
-            document.getElementById('order-form-container') ? document.getElementById('order-form-container').style.display = 'none' : orderForm.style.display = 'none';
+            orderForm.style.display = 'none';
             document.getElementById('order-success').style.display = 'block';
             document.getElementById('new-order-id').innerText = orderId;
         });

@@ -7,11 +7,11 @@
     <title>Admin | Rabiscos da Kinny</title>
     <link rel="icon" href="images/logo.png" type="image/png">
 
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/variables.css?v=2.0">
+    <link rel="stylesheet" href="css/global.css?v=2.0">
+    <link rel="stylesheet" href="css/components.css?v=2.0">
+    <link rel="stylesheet" href="css/admin.css?v=2.0">
+    <link rel="stylesheet" href="css/mobile.css?v=2.0">
 </head>
 
 <body>
@@ -325,43 +325,43 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Backup & Restore System -->
-    <div class="admin-card"
-        style="grid-column: 1 / -1; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border: 2px solid #81c784;">
-        <h3>💾 Backup & Restauração</h3>
-        <p style="margin-bottom: 15px; font-size: 0.9rem;">Exporte suas configurações para transferir para outro
-            navegador ou dispositivo (ex: site no Netlify).</p>
+        <!-- Backup & Restore System -->
+        <div class="admin-card"
+            style="grid-column: 1 / -1; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border: 2px solid #81c784;">
+            <h3>💾 Backup & Restauração</h3>
+            <p style="margin-bottom: 15px; font-size: 0.9rem;">Exporte suas configurações para transferir para outro
+                navegador ou dispositivo (ex: site no Netlify).</p>
 
-        <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
-            <button id="btn-export-settings" class="btn btn-primary" style="padding: 10px 25px; background: #4caf50;">
-                📥 Exportar Configurações
-            </button>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="import-file" class="btn"
-                    style="padding: 10px 25px; background: #2196f3; color: white; cursor: pointer; border-radius: 8px;">
-                    📤 Importar Configurações
-                </label>
-                <input type="file" id="import-file" accept=".json" style="display: none;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <button id="btn-export-settings" class="btn btn-primary"
+                    style="padding: 10px 25px; background: #4caf50;">
+                    📥 Exportar Configurações
+                </button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label for="import-file" class="btn"
+                        style="padding: 10px 25px; background: #2196f3; color: white; cursor: pointer; border-radius: 8px;">
+                        📤 Importar Configurações
+                    </label>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                </div>
+            </div>
+            <p style="font-size: 0.75rem; color: #555; margin-top: 10px;">
+                💡 <strong>Como usar:</strong> Clique em "Exportar" aqui (no localhost), salve o arquivo. Depois, abra o
+                site no Netlify, vá no Admin, clique em "Importar" e selecione o arquivo baixado.
+            </p>
+        </div>
+
+        <!-- Orders System -->
+        <div class="admin-card" style="grid-column: 1 / -1;">
+            <h3>📦 Gerenciar Pedidos</h3>
+            <p style="margin-bottom: 20px; font-size: 0.9rem;">Veja e atualize o status dos pedidos.</p>
+
+            <div id="orders-list" style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Orders will be injected here by JS -->
+                <p style="text-align: center; color: gray;">Nenhum pedido ainda.</p>
             </div>
         </div>
-        <p style="font-size: 0.75rem; color: #555; margin-top: 10px;">
-            💡 <strong>Como usar:</strong> Clique em "Exportar" aqui (no localhost), salve o arquivo. Depois, abra o
-            site no Netlify, vá no Admin, clique em "Importar" e selecione o arquivo baixado.
-        </p>
-    </div>
-
-    <!-- Orders System -->
-    <div class="admin-card" style="grid-column: 1 / -1;">
-        <h3>📦 Gerenciar Pedidos</h3>
-        <p style="margin-bottom: 20px; font-size: 0.9rem;">Veja e atualize o status dos pedidos.</p>
-
-        <div id="orders-list" style="display: flex; flex-direction: column; gap: 15px;">
-            <!-- Orders will be injected here by JS -->
-            <p style="text-align: center; color: gray;">Nenhum pedido ainda.</p>
-        </div>
-    </div>
 
     </div>
     </div>
@@ -370,7 +370,6 @@
     <button id="save-settings-btn" class="save-fab" title="Salvar Alterações">
         💾
     </button>
-    </div>
 
     <!-- Success Toast -->
     <div id="toast" class="success-toast">

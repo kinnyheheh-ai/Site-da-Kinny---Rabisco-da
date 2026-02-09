@@ -1,117 +1,206 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Rabiscos da Kinny - Portfólio de arte digital fofa, fanarts e comissões personalizadas. Transforme seus sonhos em arte!">
-    <meta name="keywords" content="arte digital, ilustradora, comissões, fanart, chibi, anime, kinny">
-    <meta name="author" content="Kinny">
-
-    <!-- Open Graph / Facebook -->
+    <meta name="description" content="Rabiscos da Kinny - Arte digital fofa, fanarts e comissoes personalizadas.">
+    <meta name="keywords" content="arte digital, ilustradora, comissoes, fanart, chibi, anime, kinny">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rabiscosdakinny.art/">
-    <meta property="og:title" content="Rabiscos da Kinny | Portfólio de Arte">
-    <meta property="og:description" content="Transformando sonhos em arte digital fofa ✨">
+    <meta property="og:title" content="Rabiscos da Kinny | Arte Digital">
+    <meta property="og:description" content="Transformando sonhos em arte digital fofa">
     <meta property="og:image" content="images/og-image.jpg">
-
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rabiscosdakinny.art/">
-    <meta property="twitter:title" content="Rabiscos da Kinny | Portfólio de Arte">
-    <meta property="twitter:description" content="Transformando sonhos em arte digital fofa ✨">
-    <meta property="twitter:image" content="images/og-image.jpg">
 
-    <title>Início | Rabiscos da Kinny</title>
+    <title>Rabiscos da Kinny | Arte Digital</title>
     <link rel="icon" href="images/logo.png" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/variables.css?v=1.1">
-    <link rel="stylesheet" href="css/global.css?v=1.1">
-    <link rel="stylesheet" href="css/components.css?v=1.1">
-    <link rel="stylesheet" href="css/home.css?v=1.1">
-    <link rel="stylesheet" href="css/mobile.css?v=1.1">
-
-    <!-- Header/Footer Component -->
-    <script src="js/components.js?v=1.1" defer></script>
+    <link rel="stylesheet" href="css/variables.css?v=3.0">
+    <link rel="stylesheet" href="css/global.css?v=3.0">
+    <link rel="stylesheet" href="css/components.css?v=3.0">
+    <link rel="stylesheet" href="css/home.css?v=3.0">
+    <link rel="stylesheet" href="css/mobile.css?v=3.0">
+    <script src="js/components.js?v=3.0" defer></script>
 </head>
-
 <body>
 
-    <!-- Header (Injected automatically) -->
+    <div class="page-loader" id="page-loader"><div class="loader-spinner"></div></div>
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <canvas id="particles-canvas"></canvas>
+
     <header class="main-header"></header>
 
-    <!-- Hero Section -->
-    <section class="hero container">
-        <div class="sparkle" style="top: 20%; left: 10%;"></div>
-        <div class="star-dec" style="top: 15%; right: 15%;"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" data-lang="hero_title">Transformando sonhos em <span>arte digital fofa ✨</span></h1>
-            <p class="hero-subtitle" data-lang="hero_subtitle">Sou a Kinny, ilustradora focada em dar vida a personagens
-                e momentos mágicos com um toque artístico único.</p>
-
-            <div class="hero-buttons">
-                <a href="portfolio.html" class="btn btn-primary" data-lang="btn_portfolio">Ver Portfólio</a>
-                <a href="commissions.html" class="btn btn-outline" data-lang="btn_commissions">Pedir Comissão</a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        <div class="container hero-grid">
+            <div class="hero-content fade-up">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span data-lang="hero_badge">Comissoes Abertas</span>
+                </div>
+                <h1 class="hero-title" data-lang="hero_title">Transformando sonhos em <span class="gradient-text">arte digital fofa</span></h1>
+                <p class="hero-subtitle" data-lang="hero_subtitle">Oi! Sou a Kinny, ilustradora apaixonada por criar personagens e momentos magicos no estilo anime e chibi.</p>
+                <div class="hero-buttons">
+                    <a href="portfolio.html" class="btn btn-primary" data-lang="btn_portfolio">Ver Portfolio</a>
+                    <a href="commissions.html" class="btn btn-outline" data-lang="btn_commissions">Pedir Comissao</a>
+                </div>
+            </div>
+            <div class="hero-visual fade-up" style="transition-delay: 0.2s;">
+                <div class="hero-card">
+                    <div class="hero-card-inner">
+                        <div class="avatar-container floating">
+                            <div class="avatar-placeholder">&#x1F469;&#x200D;&#x1F3A8;</div>
+                        </div>
+                    </div>
+                    <div class="hero-card-decor decor-1">&#x1F3A8;</div>
+                    <div class="hero-card-decor decor-2">&#x2728;</div>
+                    <div class="hero-card-decor decor-3">&#x1F338;</div>
+                </div>
             </div>
         </div>
+        <div class="hero-scroll-hint">
+            <span data-lang="scroll_hint">Role para explorar</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
-        <div class="hero-image">
-            <div class="avatar-container floating">
-                <div class="avatar-placeholder">👩‍🎨</div>
-                <div class="sparkle" style="bottom: -10px; right: -10px;"></div>
+    <!-- About -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag" data-lang="tag_about">Sobre mim</span>
+                <h2 class="section-title" data-lang="section_about">Prazer, sou a <span class="gradient-text">Kinny</span></h2>
+            </div>
+            <div class="about-content fade-up">
+                <div class="about-text-box">
+                    <p data-lang="about_text">Apaixonada por arte digital, crio ilustracoes que misturam a delicadeza do estilo anime com a expressividade do chibi. Meu foco e capturar a essencia de cada personagem, seja ele uma fanart ou uma criacao original sua.</p>
+                </div>
+            </div>
+            <div class="services-grid stagger">
+                <div class="service-card fade-up gradient-border">
+                    <div class="service-icon">&#x1F3A8;</div>
+                    <h3 data-lang="cat_fanarts">Fanarts</h3>
+                    <p data-lang="desc_fanarts">Recriacoes apaixonantes dos seus personagens favoritos de jogos e animes.</p>
+                </div>
+                <div class="service-card fade-up gradient-border">
+                    <div class="service-icon">&#x2728;</div>
+                    <h3 data-lang="cat_ocs">Original Characters</h3>
+                    <p data-lang="desc_ocs">Design de personagens unicos, Sheets e concepts para suas historias.</p>
+                </div>
+                <div class="service-card fade-up gradient-border">
+                    <div class="service-icon">&#x1F4D4;</div>
+                    <h3 data-lang="cat_sketches">Sketches</h3>
+                    <p data-lang="desc_sketches">Rabiscos rapidos e artisticos, perfeitos para capturar ideias iniciais.</p>
+                </div>
+                <div class="service-card fade-up gradient-border">
+                    <div class="service-icon">&#x1F4E6;</div>
+                    <h3 data-lang="cat_comms">Comissoes</h3>
+                    <p data-lang="desc_comms">Trabalhos sob encomenda com dedicacao total e alta qualidade.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About & Highlights -->
-    <section class="container highlights">
-        <h2 class="section-title" data-lang="section_about">Sobre a Artista</h2>
-
-        <div class="about-box">
-            <p data-lang="about_text">Com anos de experiência em arte digital, crio ilustrações que misturam a
-                delicadeza do estilo anime com a expressividade do chibi. Meu foco é capturar a essência de cada
-                personagem, seja ele uma fanart ou uma criação original sua.</p>
-        </div>
-
-        <div class="highlights-grid">
-            <div class="highlight-card">
-                <div class="highlight-icon">🎨</div>
-                <h3 data-lang="cat_fanarts">Fanarts</h3>
-                <p data-lang="desc_fanarts">Recriações apaixonantes dos seus personagens favoritos de jogos e animes.
-                </p>
+    <!-- Featured Works -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag" data-lang="tag_works">Portfolio</span>
+                <h2 class="section-title" data-lang="section_featured">Trabalhos <span class="gradient-text">Recentes</span></h2>
+                <p class="section-subtitle" data-lang="featured_sub">Confira algumas das minhas ilustracoes mais recentes</p>
             </div>
-            <div class="highlight-card">
-                <div class="highlight-icon">✨</div>
-                <h3 data-lang="cat_ocs">Original Characters</h3>
-                <p data-lang="desc_ocs">Design de personagens únicos, Sheets e concepts para suas histórias.</p>
-            </div>
-            <div class="highlight-card">
-                <div class="highlight-icon">📔</div>
-                <h3 data-lang="cat_sketches">Sketches</h3>
-                <p data-lang="desc_sketches">Rabiscos rápidos e artísticos, perfeitos para capturar ideias iniciais.</p>
-            </div>
-            <div class="highlight-card">
-                <div class="highlight-icon">📦</div>
-                <h3 data-lang="cat_comms">Comissões</h3>
-                <p data-lang="desc_comms">Trabalhos sob encomenda com entrega garantida e alta qualidade.</p>
+            <div class="featured-grid stagger" id="featured-grid"></div>
+            <div class="view-all fade-up">
+                <a href="portfolio.html" class="btn btn-outline" data-lang="view_all_works">Ver todos os trabalhos &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer (Injected automatically) -->
+    <!-- Why Choose Me (replaces fake testimonials) -->
+    <section class="promise-section">
+        <div class="container">
+            <div class="section-header fade-up">
+                <span class="section-tag" data-lang="tag_promise">Meu Compromisso</span>
+                <h2 class="section-title" data-lang="section_promise">Por que me <span class="gradient-text">escolher?</span></h2>
+            </div>
+            <div class="promise-grid stagger">
+                <div class="promise-card fade-up">
+                    <div class="promise-icon">&#x1F4AC;</div>
+                    <h3 data-lang="promise_1_title">Comunicacao Constante</h3>
+                    <p data-lang="promise_1_desc">Voce acompanha cada etapa da sua arte: rascunho, lineart, cores e finalizacao.</p>
+                </div>
+                <div class="promise-card fade-up">
+                    <div class="promise-icon">&#x1F3AF;</div>
+                    <h3 data-lang="promise_2_title">Atencao aos Detalhes</h3>
+                    <p data-lang="promise_2_desc">Cada traco e feito com carinho. Revisoes incluidas ate voce ficar satisfeita(o).</p>
+                </div>
+                <div class="promise-card fade-up">
+                    <div class="promise-icon">&#x26A1;</div>
+                    <h3 data-lang="promise_3_title">Entrega Rapida</h3>
+                    <p data-lang="promise_3_desc">Prazo de 1 a 3 semanas com atualizacoes regulares sobre o andamento.</p>
+                </div>
+                <div class="promise-card fade-up">
+                    <div class="promise-icon">&#x1F49C;</div>
+                    <h3 data-lang="promise_4_title">Preco Justo</h3>
+                    <p data-lang="promise_4_desc">Valores acessiveis com qualidade profissional. Pagamento flexivel via Pix.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card fade-up scale-up">
+                <div class="cta-glow"></div>
+                <h2 data-lang="cta_title">Quer sua arte personalizada?</h2>
+                <p data-lang="cta_subtitle">Transforme suas ideias em ilustracoes incriveis. Precos acessiveis e entrega rapida!</p>
+                <div class="cta-buttons">
+                    <a href="commissions.html" class="btn btn-ghost" data-lang="cta_button">Fazer um Pedido</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer></footer>
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">&uarr;</button>
 
-    <!-- Scripts -->
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/translations.js?v=3.0"></script>
+    <script src="js/gallery-data.js?v=3.0"></script>
+    <script src="js/main.js?v=3.0"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('featured-grid');
+            if (grid && typeof defaultGallery !== 'undefined') {
+                const saved = JSON.parse(localStorage.getItem('siteGallery')) || { portfolio: [] };
+                const local = Array.isArray(saved.portfolio) ? saved.portfolio.filter(i => i && i.src) : [];
+                const items = [...defaultGallery.portfolio, ...local].slice(0, 6);
+                items.forEach((item, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'featured-item fade-up';
+                    el.style.transitionDelay = (i * 0.08) + 's';
+                    el.innerHTML = `
+                        <img src="${item.src}" alt="${item.title}" loading="lazy">
+                        <div class="featured-overlay">
+                            <span class="featured-cat">${item.category.toUpperCase()}</span>
+                            <h3>${item.title}</h3>
+                        </div>
+                    `;
+                    grid.appendChild(el);
+                });
+                if (items.length === 0) {
+                    grid.innerHTML = '<p style="text-align:center; color: var(--text-muted); grid-column: 1/-1; padding: 60px 20px; font-size: 1.1rem;">Em breve novos trabalhos aqui!</p>';
+                }
+            }
+        });
+    </script>
 </body>
-
 </html>
